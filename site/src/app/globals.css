@@ -1,26 +1,32 @@
 @import "tailwindcss";
-body{
-  font-weight: 500;
-}
-@theme {
-  /* Brand palette — earthy, woody, natural. Warm, sun-baked, not stark white. */
-  --color-forest: #34503f;
-  --color-forest-soft: #4a6a55;
-  --color-cream: #f3e8d4;
-  --color-cream-deep: #e9dabf;
-  --color-sand: #e7d3ac;
-  --color-linen: #efe2c9;
-  --color-kraft: #cdb791;
-  --color-kraft-deep: #b89e74;
-  --color-bark: #5c4733;
-  --color-clay: #c08457;
-  --color-sky: #f1e5cf;
-  --color-hill: #8fa37e;
-  --color-hill-deep: #6e8466;
 
-  --font-display: var(--font-fraunces);
-  --font-hand: var(--font-caveat);
-  --font-sans: var(--font-google-sans);
+@theme {
+  /* Paper & ink — warm, kitchen-table neutrals */
+  --color-paper: #f5eee2; /* page background */
+  --color-cream: #fbf7ee; /* notes, prints, light text on dark */
+  --color-linen: #ece1cb; /* story band */
+  --color-oat: #e9dcc3; /* special-order card */
+  --color-rule: #ddd0b8; /* hairlines */
+  --color-rule-deep: #d6c7ab;
+
+  --color-ink: #3b3026; /* body text */
+  --color-ink-deep: #2f261d; /* headings */
+  --color-ink-soft: #5f5446; /* secondary text */
+  --color-ink-warm: #3f342a; /* long-form text */
+
+  /* Accents */
+  --color-moss: #4a6140; /* primary accent: buttons, links, eyebrows */
+  --color-moss-dark: #364529;
+  --color-forest: #34503f; /* logo wordmark */
+  --color-honey: #8a5a2b; /* handwritten notes */
+  --color-nutmeg: #9a7a52; /* step numbers */
+  --color-wheat: #b59a74; /* little ✳ separators */
+  --color-butter: #e6c98f; /* accent on dark */
+  --color-walnut: #3a2b20; /* contact section */
+
+  --font-serif: var(--font-lora), Georgia, serif;
+  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
+  --font-hand: var(--font-kalam), cursive;
 }
 
 :root {
@@ -29,135 +35,23 @@ body{
 
 html {
   scroll-behavior: smooth;
-  
 }
 
 body {
-  font-family: var(--font-google-sans), system-ui, sans-serif;
+  overflow-x: clip;
 }
 
-.font-display {
-  font-family: var(--font-display), Georgia, serif;
-  
+/* Horizontal bakes rail: scrollable but without a visible scrollbar */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
-/* Hand-lettered brush headlines — warm, joyful, rustic (the Woodland feel) */
-h1,
-h2,
-h3,
-h4,
-.font-hand {
-  font-family: var(--font-hand), "Comic Sans MS", cursive;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-}
-
-/* Warm cork board for the Repostería section — real seamless cork photo,
-   with a soft top-light + edge vignette so the cream text stays legible */
-.cork {
-  background-color: #9c6f3d;
-  background-image:
-    radial-gradient(
-      130% 120% at 50% 0%,
-      rgba(48, 30, 10, 0.42) 0%,
-      rgba(48, 30, 10, 0.12) 45%,
-      rgba(48, 30, 10, 0.34) 100%
-    ),
-    url("/textures/cork.webp");
-  background-repeat: no-repeat, repeat;
-  background-size: 100% 100%, 340px 340px;
-  background-position: 0 0, 0 0;
-}
-
-/* Organic wavy TOP edge for the cork section — masks the section's own cork
-   image into a torn wave that laps up over the hero. The cork texture is
-   carried right to the wavy boundary; the notches above the wave reveal the
-   hero behind. Layer 1 = the wave band at the very top; layer 2 = a solid fill
-   for the whole body below it (2px overlap so there's no seam). */
-.cork-wavy-top {
-  --wave: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201200%2060'%20preserveAspectRatio='none'%3E%3Cpath%20d='M0%2060%20L0%2020%20C%2018.75%2020%2018.75%2042%2037.5%2042%20C%2056.25%2042%2056.25%2020%2075%2020%20C%2093.75%2020%2093.75%2042%20112.5%2042%20C%20131.25%2042%20131.25%2020%20150%2020%20C%20168.75%2020%20168.75%2042%20187.5%2042%20C%20206.25%2042%20206.25%2020%20225%2020%20C%20243.75%2020%20243.75%2042%20262.5%2042%20C%20281.25%2042%20281.25%2020%20300%2020%20C%20318.75%2020%20318.75%2042%20337.5%2042%20C%20356.25%2042%20356.25%2020%20375%2020%20C%20393.75%2020%20393.75%2042%20412.5%2042%20C%20431.25%2042%20431.25%2020%20450%2020%20C%20468.75%2020%20468.75%2042%20487.5%2042%20C%20506.25%2042%20506.25%2020%20525%2020%20C%20543.75%2020%20543.75%2042%20562.5%2042%20C%20581.25%2042%20581.25%2020%20600%2020%20C%20618.75%2020%20618.75%2042%20637.5%2042%20C%20656.25%2042%20656.25%2020%20675%2020%20C%20693.75%2020%20693.75%2042%20712.5%2042%20C%20731.25%2042%20731.25%2020%20750%2020%20C%20768.75%2020%20768.75%2042%20787.5%2042%20C%20806.25%2042%20806.25%2020%20825%2020%20C%20843.75%2020%20843.75%2042%20862.5%2042%20C%20881.25%2042%20881.25%2020%20900%2020%20C%20918.75%2020%20918.75%2042%20937.5%2042%20C%20956.25%2042%20956.25%2020%20975%2020%20C%20993.75%2020%20993.75%2042%201012.5%2042%20C%201031.25%2042%201031.25%2020%201050%2020%20C%201068.75%2020%201068.75%2042%201087.5%2042%20C%201106.25%2042%201106.25%2020%201125%2020%20C%201143.75%2020%201143.75%2042%201162.5%2042%20C%201181.25%2042%201181.25%2020%201200%2020%20L1200%2060%20Z'%20fill='%23fff'/%3E%3C/svg%3E");
-  -webkit-mask-image: var(--wave), linear-gradient(#000, #000);
-  -webkit-mask-repeat: no-repeat, no-repeat;
-  -webkit-mask-size: 100% 3.5rem, 100% calc(100% - 3.4rem);
-  -webkit-mask-position: top center, bottom center;
-  mask-image: var(--wave), linear-gradient(#000, #000);
-  mask-repeat: no-repeat, no-repeat;
-  mask-size: 100% 3.5rem, 100% calc(100% - 3.4rem);
-  mask-position: top center, bottom center;
-}
-
-/* Wavy mask that bridges the cork Repostería into the Sobre-mí section.
-   Sits flush on top of Sobre-mí and laps up over the cork above it. */
-.section-divider {
-  display: block;
-  width: 100%;
-  height: auto;
-  margin-bottom: -1px;
-  position: relative;
-  z-index: 1;
-  pointer-events: none;
-}
-.section-divider.bottom {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  transform: scaleY(-1);
-}
-.section-divider.top {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -1px;
-}
-
-/* Real paper-fibre grain (subtle organic noise) */
-.paper-grain {
-  position: relative;
-}
-.paper-grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.07;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* Washi tape used to pin polaroids — translucent, soft, hand-torn feel */
-.tape {
-  background:
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.12) 0 4px,
-      rgba(255, 255, 255, 0) 4px 8px
-    ),
-    linear-gradient(180deg, rgba(244, 239, 230, 0.62), rgba(220, 208, 184, 0.5));
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  -webkit-mask-image: linear-gradient(
-    90deg,
-    transparent 0,
-    #000 6%,
-    #000 94%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    90deg,
-    transparent 0,
-    #000 6%,
-    #000 94%,
-    transparent 100%
-  );
-}
-
-/* Drop cap for editorial paragraphs */
-.dropcap::first-letter {
-  font-family: var(--font-hand), cursive;
-  font-weight: 700;
-  font-size: 3.4em;
-  line-height: 0.7;
-  float: left;
-  padding: 0.1em 0.12em 0 0;
-  color: var(--color-clay);
+/* Same outer margins as the 1232px content column */
+.rail-gutter {
+  --gutter: max(24px, calc((100% - 1232px) / 2));
+  padding-inline: var(--gutter);
+  scroll-padding-inline: var(--gutter);
 }

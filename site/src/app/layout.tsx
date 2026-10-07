@@ -1,37 +1,37 @@
 import type { Metadata } from "next";
-import { Fraunces, Google_Sans, Caveat } from "next/font/google";
+import { DM_Sans, Kalam, Lora } from "next/font/google";
 import "./globals.css";
 
-const fraunces = Fraunces({
+// Editorial serif for headings
+const lora = Lora({
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  style: ["normal", "italic"],
+  variable: "--font-lora",
   display: "swap",
 });
 
-// Clean, friendly geometric sans for body copy
-const googleSans = Google_Sans({
+// Clean, friendly sans for body copy
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-google-sans",
+  variable: "--font-dm-sans",
   display: "swap",
 });
 
-// Hand-lettered brush feel for headlines — the Woodland personality
-const caveat = Caveat({
+// Handwriting, used sparingly for notes
+const kalam = Kalam({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  variable: "--font-caveat",
+  weight: ["400", "700"],
+  variable: "--font-kalam",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: "Dulce Kiwi — Repostería casera",
   description:
-    "Repostería casera, natural y de la tierra. Budines y tortas con frutos secos, dátiles, banana y harinas integrales. Hecho a mano en Acassuso, Buenos Aires.",
+    "Repostería casera, como la de antes. Budines, tartas y scones con ingredientes de verdad, hechos a mano en Acassuso, Buenos Aires.",
   openGraph: {
     title: "Dulce Kiwi — Repostería casera",
-    description:
-      "Repostería casera, natural y de la tierra. Acassuso, Buenos Aires.",
+    description: "Repostería casera, como la de antes. Acassuso, Buenos Aires.",
     type: "website",
   },
 };
@@ -42,9 +42,11 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${fraunces.variable} ${googleSans.variable} ${caveat.variable}`}
+      className={`${lora.variable} ${dmSans.variable} ${kalam.variable}`}
     >
-      <body className="bg-cream text-forest antialiased">{children}</body>
+      <body className="bg-paper font-sans text-ink antialiased">
+        {children}
+      </body>
     </html>
   );
 }
