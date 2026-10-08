@@ -1,7 +1,7 @@
-// TODO: replace with Ellie's real number, Instagram and email
+// TODO: replace with Ellie's real Instagram and email
 export const CONTACT = {
-  whatsapp: "5491100000000",
-  whatsappLabel: "+54 9 11 [NÚMERO]",
+  whatsapp: "5491122411701",
+  whatsappLabel: "+54 9 11 2241-1701",
   instagram: "dulcekiwi",
   email: "hola@dulcekiwi.com.ar",
 };
@@ -15,6 +15,54 @@ export const WA_HELLO = whatsappLink(
 export const WA_SPECIAL = whatsappLink(
   "¡Hola Ellie! Quería consultarte por un pedido especial.",
 );
+
+export type Promo = {
+  id: string;
+  name: string;
+  startDate: string; // YYYY-MM-DD, inclusive
+  endDate: string; // YYYY-MM-DD, inclusive
+  tagline: string;
+  items: string[];
+  price: number;
+  scarcityLine: string;
+  photoSrc: string;
+  photoAlt: string;
+  whatsappMessage: string;
+};
+
+export const PROMOS: Promo[] = [
+  {
+    id: "dia-de-la-madre-2026",
+    name: "Caja Día de la Madre",
+    startDate: "2026-10-07",
+    endDate: "2026-10-15",
+    tagline: "un poquito de acá, un poquito de allá — para regalar",
+    items: [
+      "Mini budín de zanahoria",
+      "2 scones de queso",
+      "2 rodajas de budín de limón",
+      "2 Afghans (galletitas neozelandesas con ganache de chocolate)",
+      "2 lamingtons (bizcocho neozelandés bañado en chocolate y coco rallado, con dulce de leche)",
+      "2 mini rogels",
+    ],
+    price: 40000,
+    scarcityLine: "Hago todo a mano, así que son solo 20 cajas.",
+    // TODO: placeholder (AI-generated) — swap for a real photo of the box
+    photoSrc: "/home/promo-dia-de-la-madre-v3.jpg",
+    photoAlt: "Caja Día de la Madre con budín de zanahoria, scones, budín de limón, Afghans, lamingtons y mini rogels",
+    whatsappMessage: "¡Hola Ellie! Quiero encargar la Caja Día de la Madre.",
+  },
+];
+
+const buenosAiresToday = () =>
+  new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Argentina/Buenos_Aires",
+  }).format(new Date());
+
+export const getActivePromo = (): Promo | undefined => {
+  const today = buenosAiresToday();
+  return PROMOS.find((p) => today >= p.startDate && today <= p.endDate);
+};
 
 export type Bake = {
   name: string;
@@ -54,10 +102,10 @@ export const BAKES: Bake[] = [
     alt: "Tarta de lima con rodajas de lima sobre una mesa rústica",
   },
   {
-    name: "Torta de panqueques",
+    name: "Rogel",
     detail: "Capa por capa, con dulce de leche y merengue tostado.",
-    note: "mis dos mundos",
+    note: "el plato estrella",
     img: "/home/bake-crepe.webp",
-    alt: "Torta alta de panqueques con dulce de leche y merengue tostado",
+    alt: "Rogel casero, capa por capa, con dulce de leche y merengue tostado",
   },
 ];
