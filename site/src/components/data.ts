@@ -1,9 +1,8 @@
-// TODO: replace with Ellie's real Instagram and email
 export const CONTACT = {
   whatsapp: "5491122411701",
   whatsappLabel: "+54 9 11 2241-1701",
-  instagram: "dulcekiwi",
-  email: "hola@dulcekiwi.com.ar",
+  instagram: "dulce__kiwi",
+  email: "hola@dulcekiwi.com",
 };
 
 export const whatsappLink = (text: string) =>
