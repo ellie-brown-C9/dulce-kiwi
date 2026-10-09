@@ -58,7 +58,15 @@ Mockup reference: `.superpowers/brainstorm/*/content/homepage-colours.html`, rig
    - Rogel photo in an arch shape.
    - Kiwi circle badge (`/brand/badge-kiwi.png`) as a bobbing sticker overlapping the photo's lower-left edge.
    - "Siempre casero. Nunca apurado." on a round butter "sun" sticker at the photo's upper-right.
-   - **Promo variant (Mother's Day etc.):** same layout. The promo photo goes in the arch and the price goes on the butter sun. The item list and scarcity line are restyled to match. The existing `getActivePromo()` date logic is unchanged.
+   - The hero **no longer swaps itself out for a promo**. It's always the normal Dulce Kiwi introduction.
+2b. **Specials (only while one is active):** driven by the existing `PROMOS` data and `getActivePromo()` date logic. Dates are unchanged, so the Mother's Day box runs until 2026-10-15.
+   - **Top strip:** a slim butter bar above the header: promo name in Fraunces, then "· {short scarcity} ·" and an "Encargala ↓" link to `#especial`.
+   - **Special section** (`id="especial"`), directly under the hero and above the ticker. It's a large forest card:
+     - Left: the promo photo in an arch with a sheet border, and the price on a butter sun sticker ("$40.000 / la caja").
+     - Right: a butter eyebrow "Edición especial · hasta el {endDate}", the promo name in Fraunces (sheet, with a butter italic highlight), the tagline in Fraunces italic butter, and the item list with butter ✺ bullets.
+     - Then the scarcity line as a slightly rotated terracotta pill, and an "Encargar la caja" button (butter with a sheet shadow) linking to the promo WhatsApp message.
+   - When no promo is active, both the strip and the section render nothing.
+   - Mockup: `.superpowers/brainstorm/*/content/specials-v2.html`.
 3. **Ticker** (replaces `PromiseStrip`): a green band with wavy top and bottom edges. The four promises scroll in Fraunces italic butter, separated by cream ✺.
 4. **Esta semana (bakes):**
    - Eyebrow, plus the Fraunces headline "Lo que salió *del horno*".
@@ -100,7 +108,7 @@ The mockups are desktop. On phones:
 ## Out of scope
 
 - New pages, online ordering or a cart, new copy, new photography.
-- Deploying. Nothing goes live until Ellie has reviewed the restyled site locally and says so.
+- Deploying is the final step: after the checks pass and Ellie has had a quick look locally, publish to dulcekiwi.com the same day (target: live before the Mother's Day box closes on 2026-10-15).
 
 ## Done when
 
