@@ -18,6 +18,8 @@ export const WA_SPECIAL = whatsappLink(
 export type Promo = {
   id: string;
   name: string;
+  nameHighlight?: string; // part of `name` set in italic highlight colour
+  stripLine: string; // short line for the top strip, e.g. "solo 20 cajas"
   startDate: string; // YYYY-MM-DD, inclusive
   endDate: string; // YYYY-MM-DD, inclusive
   tagline: string;
@@ -33,6 +35,8 @@ export const PROMOS: Promo[] = [
   {
     id: "dia-de-la-madre-2026",
     name: "Caja Día de la Madre",
+    nameHighlight: "de la Madre",
+    stripLine: "solo 20 cajas",
     startDate: "2026-10-07",
     endDate: "2026-10-15",
     tagline: "un poquito de acá, un poquito de allá — para regalar",
@@ -58,10 +62,16 @@ const buenosAiresToday = () =>
     timeZone: "America/Argentina/Buenos_Aires",
   }).format(new Date());
 
-export const getActivePromo = (): Promo | undefined => {
-  const today = buenosAiresToday();
-  return PROMOS.find((p) => today >= p.startDate && today <= p.endDate);
-};
+export const getActivePromo = (today: string = buenosAiresToday()): Promo | undefined =>
+  PROMOS.find((p) => today >= p.startDate && today <= p.endDate);
+
+/** "2026-10-15" → "15 de octubre" */
+export const formatPromoEnd = (endDate: string) =>
+  new Intl.DateTimeFormat("es-AR", {
+    day: "numeric",
+    month: "long",
+    timeZone: "UTC",
+  }).format(new Date(`${endDate}T12:00:00Z`));
 
 export type Bake = {
   name: string;

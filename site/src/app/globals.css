@@ -1,32 +1,44 @@
 @import "tailwindcss";
 
 @theme {
-  /* Paper & ink — warm, kitchen-table neutrals */
-  --color-paper: #f5eee2; /* page background */
-  --color-cream: #fbf7ee; /* notes, prints, light text on dark */
-  --color-linen: #ece1cb; /* story band */
-  --color-oat: #e9dcc3; /* special-order card */
-  --color-rule: #ddd0b8; /* hairlines */
-  --color-rule-deep: #d6c7ab;
+  /* Brand palette: each colour has one job (see design brief) */
+  --color-forest: #34503f; /* main: text, buttons, big bands */
+  --color-forest-dark: #2a4033; /* hover */
+  --color-cream: #f6ebd9; /* page background */
+  --color-sheet: #fff7ec; /* lighter cream: story band, photo borders, text on green */
+  --color-butter: #f2c14e; /* sunshine: stickers, ticker, Cómo pedir band */
+  --color-terracotta: #d9663b; /* sparingly: headline highlight words, Pedir pill */
+  --color-terracotta-dark: #b04527; /* hover */
+  --color-ink-soft: #5b4a3a; /* secondary body text */
 
-  --color-ink: #3b3026; /* body text */
-  --color-ink-deep: #2f261d; /* headings */
-  --color-ink-soft: #5f5446; /* secondary text */
-  --color-ink-warm: #3f342a; /* long-form text */
-
-  /* Accents */
-  --color-moss: #4a6140; /* primary accent: buttons, links, eyebrows */
-  --color-moss-dark: #364529;
-  --color-forest: #34503f; /* logo wordmark */
-  --color-honey: #8a5a2b; /* handwritten notes */
-  --color-nutmeg: #9a7a52; /* step numbers */
-  --color-wheat: #b59a74; /* little ✳ separators */
-  --color-butter: #e6c98f; /* accent on dark */
-  --color-walnut: #3a2b20; /* contact section */
-
-  --font-serif: var(--font-lora), Georgia, serif;
+  --font-display: var(--font-fraunces), Georgia, serif;
   --font-sans: var(--font-dm-sans), system-ui, sans-serif;
-  --font-hand: var(--font-kalam), cursive;
+
+  /* ---------- Motion ("Playful"): tune or remove effects here ---------- */
+  --animate-tick: tick 32s linear infinite; /* ticker band speed */
+  --animate-bob: bob 4s ease-in-out infinite; /* hero kiwi sticker */
+  --animate-pop: pop 0.6s cubic-bezier(0.3, 1.5, 0.5, 1) both; /* hero words */
+
+  @keyframes tick {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes bob {
+    0%,
+    100% {
+      transform: rotate(var(--tilt, -12deg));
+    }
+    50% {
+      transform: rotate(calc(var(--tilt, -12deg) + 8deg)) translateY(-6px);
+    }
+  }
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: translateY(14px) rotate(4deg) scale(0.9);
+    }
+  }
 }
 
 :root {
@@ -39,6 +51,92 @@ html {
 
 body {
   overflow-x: clip;
+}
+
+/* Fraunces' soft, slightly wonky cut, used for every heading */
+.font-display {
+  font-variation-settings:
+    "SOFT" 100,
+    "WONK" 1;
+}
+
+@layer components {
+  /* Small caps label above headings */
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--color-forest) 80%, transparent);
+  }
+
+  /* Photo shapes */
+  .shape-arch {
+    border-radius: 999px 999px 1.25rem 1.25rem;
+  }
+  .shape-blob {
+    border-radius: 46% 54% 48% 52% / 52% 46% 54% 48%;
+  }
+
+  /* Buttons with an offset shadow: lift on hover, squish on press */
+  .btn-pop {
+    --btn-shadow-color: var(--btn-shadow, var(--color-butter));
+    box-shadow: 5px 5px 0 var(--btn-shadow-color);
+    transition:
+      transform 0.15s,
+      box-shadow 0.15s,
+      background-color 0.2s;
+  }
+  .btn-pop:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 var(--btn-shadow-color);
+  }
+  .btn-pop:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 var(--btn-shadow-color);
+  }
+
+  /* Bake cards sit tilted and straighten on hover */
+  .tilt-rail > * {
+    transition: transform 0.35s cubic-bezier(0.3, 1.5, 0.5, 1);
+  }
+  .tilt-rail > :nth-child(odd) {
+    transform: rotate(-2.5deg);
+  }
+  .tilt-rail > :nth-child(even) {
+    transform: rotate(2deg) translateY(10px);
+  }
+  .tilt-rail > :hover {
+    transform: rotate(0deg) scale(1.03);
+  }
+}
+
+/* Sections ease in as they scroll into view. Browsers without
+   scroll-driven animations just show them. */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 35%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
 
 /* Horizontal bakes rail: scrollable but without a visible scrollbar */

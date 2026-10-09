@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { DM_Sans, Kalam, Lora } from "next/font/google";
+import { DM_Sans, Fraunces } from "next/font/google";
 import "./globals.css";
 
-// Editorial serif for headings
-const lora = Lora({
+// Soft, slightly wonky display serif for headings (SOFT/WONK set in globals.css)
+const fraunces = Fraunces({
   subsets: ["latin"],
   style: ["normal", "italic"],
-  variable: "--font-lora",
+  axes: ["SOFT", "WONK", "opsz"],
+  variable: "--font-fraunces",
   display: "swap",
 });
 
@@ -14,14 +15,6 @@ const lora = Lora({
 const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-dm-sans",
-  display: "swap",
-});
-
-// Handwriting, used sparingly for notes
-const kalam = Kalam({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-kalam",
   display: "swap",
 });
 
@@ -41,11 +34,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="es"
-      className={`${lora.variable} ${dmSans.variable} ${kalam.variable}`}
-    >
-      <body className="bg-paper font-sans text-ink antialiased">
+    <html lang="es" className={`${fraunces.variable} ${dmSans.variable}`}>
+      <body className="bg-cream font-sans text-forest antialiased">
         {children}
       </body>
     </html>
