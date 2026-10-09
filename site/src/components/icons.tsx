@@ -28,3 +28,40 @@ export function ChatIcon({
     </svg>
   );
 }
+
+export function InstagramIcon({ size = 20, className }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.8}
+      aria-hidden="true"
+      className={className}
+    >
+      <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+export function MailIcon({ size = 20, className }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.8}
+      aria-hidden="true"
+      className={className}
+    >
+      <rect x="3" y="5.5" width="18" height="13" rx="2.5" />
+      <path d="m3.8 7 8.2 6 8.2-6" />
+    </svg>
+  );
+}

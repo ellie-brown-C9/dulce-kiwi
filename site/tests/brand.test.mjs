@@ -16,3 +16,20 @@ test("the yellow is manteca #ffd164", () => {
 test("no butter token or classes are left", () => {
   assert.doesNotMatch(css + components, /butter/);
 });
+
+const contact = read("../src/components/Contact.tsx");
+
+test("footer does not repeat the menu", () => {
+  assert.doesNotMatch(contact, /#horno|#historia|#pedidos/);
+});
+
+test("footer uses the round kiwi badge, not the stacked logo", () => {
+  assert.match(contact, /\/brand\/badge-kiwi\.png/);
+  assert.doesNotMatch(contact, /logo-stacked/);
+});
+
+test("contact labels speak in Ellie's voice", () => {
+  for (const line of ["escribime por WhatsApp", "seguime en Instagram", "o mandame un mail"]) {
+    assert.ok(contact.includes(line), `missing "${line}"`);
+  }
+});
