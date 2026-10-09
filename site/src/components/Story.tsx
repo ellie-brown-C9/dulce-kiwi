@@ -8,11 +8,11 @@ type PrintProps = {
   small?: boolean;
 };
 
-/** A little photo print with a white border and handwritten caption. */
+/** A little photo print with a white border and italic caption. */
 function Print({ src, alt, caption, className, small = false }: PrintProps) {
   return (
     <figure
-      className={`m-0 bg-cream ${
+      className={`m-0 bg-white ${
         small
           ? "p-2 pb-[34px] shadow-[0_18px_30px_-16px_rgba(40,26,12,0.55)]"
           : "p-3 pb-11 shadow-[0_24px_40px_-22px_rgba(40,26,12,0.55)]"
@@ -28,7 +28,7 @@ function Print({ src, alt, caption, className, small = false }: PrintProps) {
         />
       </div>
       <figcaption
-        className={`absolute inset-x-0 text-center font-hand text-ink ${
+        className={`absolute inset-x-0 text-center font-display font-semibold text-ink-soft italic ${
           small ? "bottom-1.5 text-[15px]" : "bottom-2.5 text-[19px]"
         }`}
       >
@@ -40,9 +40,9 @@ function Print({ src, alt, caption, className, small = false }: PrintProps) {
 
 export default function Story() {
   return (
-    <section id="historia" className="bg-linen px-6 py-24">
+    <section id="historia" className="bg-sheet px-6 py-24">
       <div className="mx-auto flex max-w-[1180px] flex-wrap items-center gap-x-24 gap-y-16">
-        <div className="relative min-w-0 flex-[1_1_380px] pr-[10%] pb-[90px]">
+        <div className="reveal relative min-w-0 flex-[1_1_380px] pr-[10%] pb-[90px]">
           <Print
             src="/home/ellie.webp"
             alt="Ellie sonriendo en su cocina, con un café sobre la mesa"
@@ -65,14 +65,12 @@ export default function Story() {
           />
         </div>
 
-        <div className="min-w-0 flex-[1_1_420px]">
-          <p className="text-xs font-semibold tracking-[0.22em] text-moss uppercase">
-            Dos casas, una cocina
-          </p>
-          <h2 className="mt-3.5 font-serif text-[clamp(38px,4.2vw,56px)] leading-[1.08] font-normal tracking-[-0.03em] text-ink-deep">
-            Hola, <em className="text-moss">soy Ellie.</em>
+        <div className="reveal min-w-0 flex-[1_1_420px]">
+          <p className="eyebrow">Dos casas, una cocina</p>
+          <h2 className="mt-3 font-display text-[clamp(40px,4.6vw,62px)] leading-none font-black tracking-[-0.02em] text-forest">
+            Hola, <em className="font-extrabold text-terracotta">soy Ellie.</em>
           </h2>
-          <div className="mt-[26px] flex flex-col gap-4 text-[17px] leading-[1.8] text-ink-warm">
+          <div className="mt-[26px] flex flex-col gap-4 text-[17px] leading-[1.8] text-ink-soft">
             <p>
               Crecí en una granja en Kumeu, al oeste de Auckland. Entre el
               campo, hornos calientes, manteca y harina, con las manos en la
@@ -89,11 +87,13 @@ export default function Story() {
               pedido. Como aprendí de chica.
             </p>
           </div>
-          <blockquote className="mt-[30px] font-serif text-2xl leading-[1.4] text-[#4a3a2a] italic">
+          <blockquote className="mt-[30px] -rotate-1 rounded-2xl bg-butter px-6 py-5 font-display text-[22px] leading-[1.4] font-semibold text-forest italic">
             “Kiwi por de dónde vengo. Dulce por lo que hago, y por este lugar
             que también es casa.”
           </blockquote>
-          <p className="mt-5 font-hand text-[28px] text-moss">Con cariño, Ellie</p>
+          <p className="mt-5 font-display text-[28px] font-extrabold text-forest italic">
+            Con cariño, Ellie
+          </p>
         </div>
       </div>
     </section>
