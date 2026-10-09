@@ -112,7 +112,9 @@ body {
 }
 
 /* Sections ease in as they scroll into view. Browsers without
-   scroll-driven animations just show them. */
+   scroll-driven animations just show them. `forwards` (not `both`) keeps
+   off-screen sections visible at rest, so previews and captures never
+   catch them blank; they only fade once they start entering the viewport. */
 @keyframes reveal {
   from {
     opacity: 0;
@@ -121,7 +123,7 @@ body {
 }
 @supports (animation-timeline: view()) {
   .reveal {
-    animation: reveal linear both;
+    animation: reveal linear forwards;
     animation-timeline: view();
     animation-range: entry 0% entry 35%;
   }

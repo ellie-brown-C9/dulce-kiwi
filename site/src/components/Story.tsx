@@ -14,8 +14,8 @@ function Print({ src, alt, caption, className, small = false }: PrintProps) {
     <figure
       className={`m-0 bg-white ${
         small
-          ? "p-2 pb-[34px] shadow-[0_18px_30px_-16px_rgba(40,26,12,0.55)]"
-          : "p-3 pb-11 shadow-[0_24px_40px_-22px_rgba(40,26,12,0.55)]"
+          ? "p-1.5 pb-1 shadow-[0_18px_30px_-16px_rgba(40,26,12,0.55)] sm:p-2"
+          : "p-3 pb-1.5 shadow-[0_24px_40px_-22px_rgba(40,26,12,0.55)]"
       } ${className}`}
     >
       <div className="relative aspect-[4/5]">
@@ -27,9 +27,10 @@ function Print({ src, alt, caption, className, small = false }: PrintProps) {
           className="object-cover"
         />
       </div>
+      {/* Caption sits under the photo (not over it), so long captions can wrap */}
       <figcaption
-        className={`absolute inset-x-0 text-center font-display font-semibold text-ink-soft italic ${
-          small ? "bottom-1.5 text-[15px]" : "bottom-2.5 text-[19px]"
+        className={`text-center leading-tight font-display font-semibold text-ink-soft italic ${
+          small ? "py-1.5 text-[11px] sm:text-[13px]" : "py-2.5 text-[17px] md:text-[19px]"
         }`}
       >
         {caption}
@@ -54,14 +55,14 @@ export default function Story() {
             src="/home/ellie-farm.webp"
             alt="Ellie de chiquita, con una galletita en la mano, en la granja de Kumeu"
             caption="3 años, Kumeu"
-            className="absolute right-0 bottom-0 w-[38%] rotate-6"
+            className="absolute right-0 bottom-0 w-[28%] rotate-6"
           />
           <Print
             small
             src="/home/ellie-baking.webp"
             alt="Ellie a los ocho años con delantal, preparando muffins en la cocina de su casa"
             caption="8 años, mis primeros muffins"
-            className="absolute bottom-3.5 -left-[2%] w-[33%] -rotate-[7deg]"
+            className="absolute bottom-3.5 -left-[2%] w-[28%] -rotate-[7deg]"
           />
         </div>
 
