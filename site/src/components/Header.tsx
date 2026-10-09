@@ -11,16 +11,15 @@ const LINKS = [
 export default function Header() {
   return (
     <header className="mx-auto flex max-w-[1280px] items-center justify-between gap-6 px-6 py-[18px]">
-      <a href="#inicio" className="flex items-center gap-3 text-forest">
+      <a href="#inicio" className="flex items-center">
         <Image
-          src="/brand/logo-green.svg"
-          alt="Sello de Dulce Kiwi"
-          width={48}
-          height={48}
-          className="-rotate-[8deg]"
+          src="/brand/logo-stacked.png"
+          alt="Dulce Kiwi"
+          width={782}
+          height={989}
+          className="h-[76px] w-auto"
           priority
         />
-        <span className="font-serif text-2xl tracking-[-0.01em]">dulce kiwi</span>
       </a>
 
       <nav aria-label="Principal" className="hidden items-center gap-8 text-[15px] md:flex">

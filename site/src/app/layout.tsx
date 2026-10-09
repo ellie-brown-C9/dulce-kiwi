@@ -26,6 +26,7 @@ const kalam = Kalam({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://dulcekiwi.com"),
   title: "Dulce Kiwi — Repostería casera",
   description:
     "Repostería casera, como la de antes. Budines, tartas y scones con ingredientes de verdad, hechos a mano en Acassuso, Buenos Aires.",

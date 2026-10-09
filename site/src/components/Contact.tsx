@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ChatIcon } from "./icons";
 import { CONTACT, WA_HELLO } from "./data";
 
@@ -53,7 +54,17 @@ export default function Contact() {
         </ul>
       </div>
 
-      <footer className="mx-auto mt-[88px] flex max-w-[1180px] flex-wrap items-center justify-between gap-3 border-t border-paper/15 pt-[26px] pb-[30px]">
+      <div className="mt-[88px] flex justify-center">
+        <Image
+          src="/brand/logo-stacked-cream.png"
+          alt="Dulce Kiwi"
+          width={782}
+          height={989}
+          className="h-[180px] w-auto md:h-[220px]"
+        />
+      </div>
+
+      <footer className="mx-auto mt-14 flex max-w-[1180px] flex-wrap items-center justify-between gap-3 border-t border-paper/15 pt-[26px] pb-[30px]">
         <span className="font-serif text-[17px] text-paper/85 italic">
           Un poquito de allá, un poquito de acá.
         </span>
