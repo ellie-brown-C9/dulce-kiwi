@@ -88,7 +88,7 @@ export default function Story() {
               pedido. Como aprendí de chica.
             </p>
           </div>
-          <blockquote className="mt-[30px] -rotate-1 rounded-2xl bg-butter px-6 py-5 font-display text-[22px] leading-[1.4] font-semibold text-forest italic">
+          <blockquote className="mt-[30px] -rotate-1 rounded-2xl bg-manteca px-6 py-5 font-display text-[22px] leading-[1.4] font-semibold text-forest italic">
             “Kiwi por de dónde vengo. Dulce por lo que hago, y por este lugar
             que también es casa.”
           </blockquote>

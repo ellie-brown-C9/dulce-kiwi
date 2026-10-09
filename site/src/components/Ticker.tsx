@@ -10,7 +10,7 @@ const PROMISES = [
 // Four copies: the band slides by half its width, and each half must be wider than any screen
 const LOOP = [...PROMISES, ...PROMISES, ...PROMISES, ...PROMISES];
 
-/** Green band with wavy edges and the promises scrolling across in butter. */
+/** Green band with wavy edges and the promises scrolling across in manteca. */
 export default function Ticker() {
   return (
     <div className="text-forest">
@@ -19,7 +19,7 @@ export default function Ticker() {
         <p className="sr-only">{PROMISES.join(" · ")}</p>
         <div
           aria-hidden="true"
-          className="flex w-max animate-tick font-display text-[clamp(22px,3vw,36px)] font-bold whitespace-nowrap text-butter italic"
+          className="flex w-max animate-tick font-display text-[clamp(22px,3vw,36px)] font-bold whitespace-nowrap text-manteca italic"
         >
           {LOOP.map((p, i) => (
             <span key={i} className="px-5">

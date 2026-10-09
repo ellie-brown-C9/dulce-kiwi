@@ -30,7 +30,7 @@ export default function Header() {
           <a
             key={l.href}
             href={l.href}
-            className="decoration-butter decoration-[3px] underline-offset-[6px] hover:underline"
+            className="decoration-manteca decoration-[3px] underline-offset-[6px] hover:underline"
           >
             {l.label}
           </a>

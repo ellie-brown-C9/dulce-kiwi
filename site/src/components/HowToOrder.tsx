@@ -15,10 +15,10 @@ const STEPS = [
 
 export default function HowToOrder() {
   return (
-    <section id="pedidos" className="bg-butter px-6 py-24 text-center">
+    <section id="pedidos" className="bg-manteca px-6 py-24 text-center">
       <div className="mx-auto max-w-[1180px]">
         <p className="eyebrow reveal">Cómo pedir</p>
-        {/* No terracotta on butter (contrast): the highlight stays forest italic */}
+        {/* No terracotta on manteca (contrast): the highlight stays forest italic */}
         <h2 className="reveal mt-3 font-display text-[clamp(38px,4.4vw,58px)] leading-none font-black tracking-[-0.02em] text-forest">
           Todo empieza con <em className="font-extrabold">un mensaje.</em>
         </h2>
@@ -26,7 +26,7 @@ export default function HowToOrder() {
         <ol className="mt-14 grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-12">
           {STEPS.map((s, i) => (
             <li key={s.title} className="reveal">
-              <span className="mx-auto flex size-[72px] items-center justify-center rounded-full bg-forest font-display text-[34px] font-black text-butter">
+              <span className="mx-auto flex size-[72px] items-center justify-center rounded-full bg-forest font-display text-[34px] font-black text-manteca">
                 {i + 1}
               </span>
               <h3 className="mt-5 font-display text-2xl font-extrabold text-forest">

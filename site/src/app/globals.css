@@ -6,7 +6,7 @@
   --color-forest-dark: #2a4033; /* hover */
   --color-cream: #f6ebd9; /* page background */
   --color-sheet: #fff7ec; /* lighter cream: story band, photo borders, text on green */
-  --color-butter: #f2c14e; /* sunshine: stickers, ticker, Cómo pedir band */
+  --color-manteca: #ffd164; /* sunshine: stickers, ticker, Cómo pedir band */
   --color-terracotta: #d9663b; /* sparingly: headline highlight words, Pedir pill */
   --color-terracotta-dark: #b04527; /* hover */
   --color-ink-soft: #5b4a3a; /* secondary body text */
@@ -80,7 +80,7 @@ body {
 
   /* Buttons with an offset shadow: lift on hover, squish on press */
   .btn-pop {
-    --btn-shadow-color: var(--btn-shadow, var(--color-butter));
+    --btn-shadow-color: var(--btn-shadow, var(--color-manteca));
     box-shadow: 5px 5px 0 var(--btn-shadow-color);
     transition:
       transform 0.15s,

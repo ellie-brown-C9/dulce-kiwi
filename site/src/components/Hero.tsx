@@ -50,7 +50,7 @@ export default function Hero() {
           </a>
           <a
             href="#horno"
-            className="font-bold text-forest underline decoration-butter decoration-[3px] underline-offset-[7px]"
+            className="font-bold text-forest underline decoration-manteca decoration-[3px] underline-offset-[7px]"
           >
             Qué hay esta semana ↓
           </a>
@@ -75,7 +75,7 @@ export default function Hero() {
           height={1200}
           className="absolute bottom-[8%] left-0 w-[26%] max-w-[150px] animate-bob"
         />
-        <p className="absolute top-[7%] right-0 flex aspect-square w-[27%] max-w-[150px] rotate-[8deg] items-center justify-center rounded-full bg-butter p-3 text-center font-display text-[clamp(13px,1.6vw,18px)] leading-tight font-bold text-forest italic">
+        <p className="absolute top-[7%] right-0 flex aspect-square w-[27%] max-w-[150px] rotate-[8deg] items-center justify-center rounded-full bg-manteca p-3 text-center font-display text-[clamp(13px,1.6vw,18px)] leading-tight font-bold text-forest italic">
           Siempre casero. Nunca apurado.
         </p>
       </figure>

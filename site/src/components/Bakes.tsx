@@ -32,7 +32,7 @@ export default function Bakes() {
                   className="object-cover"
                 />
               </div>
-              <span className="absolute bottom-3 left-0 -rotate-6 rounded-full bg-butter px-3.5 py-1 font-display text-[15px] font-bold text-forest italic">
+              <span className="absolute bottom-3 left-0 -rotate-6 rounded-full bg-manteca px-3.5 py-1 font-display text-[15px] font-bold text-forest italic">
                 {b.note}
               </span>
             </div>
@@ -44,7 +44,7 @@ export default function Bakes() {
               href={whatsappLink(
                 `¡Hola Ellie! Me gustaría encargarte ${b.name.toLowerCase()}.`,
               )}
-              className="mt-1 inline-flex min-h-11 items-center text-[15px] font-bold text-forest underline decoration-butter decoration-[3px] underline-offset-[6px] hover:text-forest-dark"
+              className="mt-1 inline-flex min-h-11 items-center text-[15px] font-bold text-forest underline decoration-manteca decoration-[3px] underline-offset-[6px] hover:text-forest-dark"
             >
               Pedíselo a Ellie →
             </a>
@@ -63,7 +63,7 @@ export default function Bakes() {
           </p>
           <a
             href={WA_SPECIAL}
-            className="btn-pop mt-6 inline-flex min-h-12 items-center self-start rounded-full bg-butter px-6 text-[15px] font-bold text-forest [--btn-shadow:var(--color-sheet)]"
+            className="btn-pop mt-6 inline-flex min-h-12 items-center self-start rounded-full bg-manteca px-6 text-[15px] font-bold text-forest [--btn-shadow:var(--color-sheet)]"
           >
             Contame
           </a>
