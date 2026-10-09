@@ -1,41 +1,82 @@
 import Image from "next/image";
 
-type PrintProps = {
-  src: string;
-  alt: string;
-  caption: string;
-  className: string;
-  small?: boolean;
-};
+// Then and now, in age order
+const MOMENTS = [
+  {
+    src: "/home/ellie-farm.webp",
+    alt: "Ellie de chiquita, con una galletita en la mano, en la granja de Kumeu",
+    age: "3 años",
+    caption: "Kumeu, NZ",
+    arch: false,
+  },
+  {
+    src: "/home/ellie-baking.webp",
+    alt: "Ellie a los ocho años con delantal, preparando muffins en la cocina de su casa",
+    age: "8 años",
+    caption: "mis primeros muffins",
+    arch: false,
+  },
+  {
+    src: "/home/ellie.webp",
+    alt: "Ellie sonriendo en su cocina, con un café sobre la mesa",
+    age: "hoy",
+    caption: "Acassuso",
+    arch: true,
+  },
+];
 
-/** A little photo print with a white border and italic caption. */
-function Print({ src, alt, caption, className, small = false }: PrintProps) {
+const COLS = "grid grid-cols-[1fr_1fr_1.4fr] gap-3 sm:gap-5";
+
+/** Three photos left to right (3 → 8 → today), joined by a dotted wavy line. */
+function Timeline() {
   return (
-    <figure
-      className={`m-0 bg-white ${
-        small
-          ? "p-1.5 pb-1 shadow-[0_18px_30px_-16px_rgba(40,26,12,0.55)] sm:p-2"
-          : "p-3 pb-1.5 shadow-[0_24px_40px_-22px_rgba(40,26,12,0.55)]"
-      } ${className}`}
-    >
-      <div className="relative aspect-[4/5]">
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          sizes={small ? "200px" : "(min-width: 900px) 480px, 90vw"}
-          className="object-cover"
-        />
+    <div className="reveal min-w-0 flex-[1_1_380px]">
+      <div className={`${COLS} items-end`}>
+        {MOMENTS.map((m) => (
+          <div
+            key={m.age}
+            className={`relative overflow-hidden shadow-[0_14px_28px_-16px_rgba(40,26,12,0.55)] ${
+              m.arch ? "shape-arch aspect-[4/5.4]" : "aspect-square rounded-full"
+            }`}
+          >
+            <Image
+              src={m.src}
+              alt={m.alt}
+              fill
+              sizes={m.arch ? "(min-width: 900px) 240px, 38vw" : "(min-width: 900px) 170px, 27vw"}
+              className="object-cover"
+            />
+          </div>
+        ))}
       </div>
-      {/* Caption sits under the photo (not over it), so long captions can wrap */}
-      <figcaption
-        className={`text-center leading-tight font-display font-semibold text-ink-soft italic ${
-          small ? "py-1.5 text-[11px] sm:text-[13px]" : "py-2.5 text-[17px] md:text-[19px]"
-        }`}
-      >
-        {caption}
-      </figcaption>
-    </figure>
+
+      <div className={`${COLS} relative mt-4 text-center`}>
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 400 12"
+          preserveAspectRatio="none"
+          className="absolute top-2 left-[12%] h-3 w-[76%] text-forest/45"
+        >
+          <path
+            d="M0 6 Q25 0 50 6 T100 6 T150 6 T200 6 T250 6 T300 6 T350 6 T400 6"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeDasharray="6 7"
+          />
+        </svg>
+        {MOMENTS.map((m) => (
+          <div key={m.age} className="relative min-w-0">
+            <span className="inline-block rounded-full bg-forest px-3 py-0.5 font-display text-sm font-black text-manteca sm:text-base">
+              {m.age}
+            </span>
+            <span className="mt-1.5 block font-display text-xs leading-tight font-semibold text-ink-soft italic sm:text-sm">
+              {m.caption}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -43,28 +84,7 @@ export default function Story() {
   return (
     <section id="historia" className="bg-sheet px-6 py-24">
       <div className="mx-auto flex max-w-[1180px] flex-wrap items-center gap-x-24 gap-y-16">
-        <div className="reveal relative min-w-0 flex-[1_1_380px] pr-[10%] pb-[90px]">
-          <Print
-            src="/home/ellie.webp"
-            alt="Ellie sonriendo en su cocina, con un café sobre la mesa"
-            caption="yo, hoy · Acassuso"
-            className="relative -rotate-[2.5deg]"
-          />
-          <Print
-            small
-            src="/home/ellie-farm.webp"
-            alt="Ellie de chiquita, con una galletita en la mano, en la granja de Kumeu"
-            caption="3 años, Kumeu"
-            className="absolute right-0 bottom-0 w-[28%] rotate-6"
-          />
-          <Print
-            small
-            src="/home/ellie-baking.webp"
-            alt="Ellie a los ocho años con delantal, preparando muffins en la cocina de su casa"
-            caption="8 años, mis primeros muffins"
-            className="absolute bottom-3.5 -left-[2%] w-[28%] -rotate-[7deg]"
-          />
-        </div>
+        <Timeline />
 
         <div className="reveal min-w-0 flex-[1_1_420px]">
           <p className="eyebrow">Dos casas, una cocina</p>
