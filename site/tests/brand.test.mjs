@@ -53,3 +53,8 @@ test("contacts are solid stickers, not cream labels with an overlapping disc", (
   assert.doesNotMatch(contact, /-left-7/);
   assert.match(contact, /bg-terracotta text-sheet/);
 });
+
+test("buttons speak as Ellie (first person), never about Ellie", () => {
+  assert.doesNotMatch(components, /Pedíselo a Ellie|Escribile a Ellie/);
+  assert.match(read("../src/components/Bakes.tsx"), /Pedímelo/);
+});

@@ -1,11 +1,12 @@
 "use client";
 
-import { useRef, type PointerEvent, type ReactNode, type MouseEvent } from "react";
-import { isDrag } from "./drag";
+import { useEffect, useRef, type MouseEvent, type PointerEvent, type ReactNode } from "react";
+import { glideStep, isDrag } from "./drag";
 
 /**
- * A horizontal scroller you can also click-and-drag with a mouse.
- * Touch and trackpad keep their native scrolling; a drag never counts as a click.
+ * A horizontal scroller you can also click-and-drag with a mouse. It follows the mouse
+ * 1:1 and glides to a stop when you let go. Touch and trackpad keep their native
+ * scrolling; a drag never counts as a click.
  */
 export default function DragScroll({
   className = "",
@@ -15,28 +16,60 @@ export default function DragScroll({
   children: ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const drag = useRef({ down: false, startX: 0, startLeft: 0, moved: false });
+  const drag = useRef({ down: false, moved: false, startX: 0, startLeft: 0, lastX: 0, lastT: 0, speed: 0 });
+  const glide = useRef(0);
+
+  const stopGlide = () => cancelAnimationFrame(glide.current);
+  useEffect(() => stopGlide, []);
 
   const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
     if (e.pointerType !== "mouse" || e.button !== 0 || !ref.current) return;
-    drag.current = { down: true, startX: e.clientX, startLeft: ref.current.scrollLeft, moved: false };
+    stopGlide();
+    drag.current = {
+      down: true,
+      moved: false,
+      startX: e.clientX,
+      startLeft: ref.current.scrollLeft,
+      lastX: e.clientX,
+      lastT: e.timeStamp,
+      speed: 0,
+    };
   };
 
   const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {
     const el = ref.current;
-    if (!drag.current.down || !el) return;
-    const dx = e.clientX - drag.current.startX;
-    if (!drag.current.moved && isDrag(dx)) {
-      drag.current.moved = true;
+    const d = drag.current;
+    if (!d.down || !el) return;
+    const dx = e.clientX - d.startX;
+    if (!d.moved && isDrag(dx)) {
+      d.moved = true;
       el.setPointerCapture(e.pointerId);
-      el.dataset.dragging = "true"; // pauses scroll-snap and shows the grabbing cursor
+      el.dataset.dragging = "true";
     }
-    if (drag.current.moved) el.scrollLeft = drag.current.startLeft - dx;
+    if (!d.moved) return;
+    el.scrollLeft = d.startLeft - dx;
+    // Track speed in px per ~16ms frame so the glide continues at the same pace
+    const dt = Math.max(1, e.timeStamp - d.lastT);
+    d.speed = ((d.lastX - e.clientX) / dt) * 16;
+    d.lastX = e.clientX;
+    d.lastT = e.timeStamp;
   };
 
   const end = () => {
-    drag.current.down = false;
-    if (ref.current) delete ref.current.dataset.dragging; // snap settles on the nearest card
+    const el = ref.current;
+    const d = drag.current;
+    if (!d.down) return;
+    d.down = false;
+    if (!el || !d.moved) return;
+    delete el.dataset.dragging;
+    let speed = d.speed;
+    const step = () => {
+      speed = glideStep(speed);
+      if (speed === 0) return;
+      el.scrollLeft += speed;
+      glide.current = requestAnimationFrame(step);
+    };
+    glide.current = requestAnimationFrame(step);
   };
 
   // Swallow the click that follows a drag, so letting go over a link doesn't open it

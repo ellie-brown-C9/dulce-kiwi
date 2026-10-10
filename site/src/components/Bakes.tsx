@@ -20,7 +20,7 @@ export default function Bakes() {
         </p>
       </div>
 
-      <DragScroll className="no-scrollbar rail-gutter tilt-rail mt-10 flex snap-x snap-mandatory items-start gap-8 overflow-x-auto pt-6 pb-8">
+      <DragScroll className="no-scrollbar rail-gutter tilt-rail mt-10 flex snap-x snap-mandatory items-start pointer-fine:snap-none gap-8 overflow-x-auto pt-6 pb-8">
         {BAKES.map((b) => (
           <article key={b.name} className={CARD}>
             {/* Only the photo tilts; the text below stays straight */}
@@ -48,7 +48,7 @@ export default function Bakes() {
               )}
               className="mt-1 inline-flex min-h-11 items-center text-[15px] font-bold text-forest underline decoration-manteca decoration-[3px] underline-offset-[6px] hover:text-forest-dark"
             >
-              Pedíselo a Ellie →
+              Pedímelo →
             </a>
           </article>
         ))}

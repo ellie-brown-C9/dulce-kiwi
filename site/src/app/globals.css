@@ -110,7 +110,8 @@ body {
     transform: rotate(0deg) scale(1.03);
   }
 
-  /* Rails you can click-and-drag with a mouse (see DragScroll) */
+  /* Rails you can click-and-drag with a mouse (see DragScroll). Snapping is turned off
+     for mouse users on the rail itself (pointer-fine:snap-none) so the glide is smooth. */
   @media (pointer: fine) {
     .drag-scroll {
       cursor: grab;
@@ -118,7 +119,6 @@ body {
   }
   .drag-scroll[data-dragging] {
     cursor: grabbing;
-    scroll-snap-type: none;
     user-select: none;
   }
 }

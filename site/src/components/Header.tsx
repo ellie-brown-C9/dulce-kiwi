@@ -6,13 +6,13 @@ import { WA_HELLO } from "./data";
 const LINK =
   "mt-4 border-y-2 border-forest/15 py-3 text-center decoration-manteca decoration-[3px] underline-offset-[6px] hover:underline md:mt-0 md:border-0 md:p-0";
 
-/** Split menu: stacked wordmark in the middle, two links on the left, "Cómo pedir" + Pedir on the right. */
+/** Split menu: stacked wordmark in the middle with the links gathered close on either side. */
 export default function Header() {
   return (
     <header className="mx-auto max-w-[1280px] px-6 pt-5 md:py-5">
       <nav
         aria-label="Principal"
-        className="grid grid-cols-3 items-center text-[14px] font-semibold text-forest md:grid-cols-[1fr_auto_1fr] md:gap-x-10 md:text-[15px]"
+        className="mx-auto grid max-w-[880px] grid-cols-3 items-center text-[14px] font-semibold text-forest md:grid-cols-[1fr_auto_1fr] md:gap-x-12 md:text-[15px]"
       >
         <a
           href="#inicio"
@@ -28,7 +28,7 @@ export default function Header() {
           />
         </a>
 
-        <div className="contents md:col-start-1 md:row-start-1 md:flex md:gap-8">
+        <div className="contents md:col-start-1 md:row-start-1 md:flex md:justify-self-end md:gap-8">
           <a href="#horno" className={LINK}>
             Esta semana
           </a>
@@ -37,7 +37,7 @@ export default function Header() {
           </a>
         </div>
 
-        <div className="contents md:col-start-3 md:row-start-1 md:flex md:items-center md:justify-self-end md:gap-8">
+        <div className="contents md:col-start-3 md:row-start-1 md:flex md:items-center md:justify-self-start md:gap-8">
           <a href="#pedidos" className={LINK}>
             Cómo pedir
           </a>

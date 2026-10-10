@@ -9,7 +9,7 @@ export default function FloatingWhatsApp() {
       className="btn-pop fixed right-4 bottom-5 z-50 inline-flex min-h-[52px] items-center gap-2 rounded-full bg-forest pr-5 pl-4 text-[15px] font-bold text-cream md:hidden"
     >
       <ChatIcon filled />
-      Escribile a Ellie
+      Escribime
     </a>
   );
 }
