@@ -28,7 +28,7 @@ const MOMENTS = [
 /** Three equal arches (3 → 8 → today); on hover a photo lifts gently off its colour block. */
 function Photos() {
   return (
-    <ul className="reveal grid min-w-0 flex-[1.3_1_480px] grid-cols-3 items-end gap-4 pr-3 pb-3 sm:gap-7">
+    <ul className="reveal grid min-w-0 flex-[1.6_1_520px] grid-cols-3 items-end gap-4 pr-3 pb-3 sm:gap-7">
       {MOMENTS.map((m) => (
         <li key={m.age} className="group text-center">
           <div className="relative">
@@ -38,7 +38,7 @@ function Photos() {
                 src={m.src}
                 alt={m.alt}
                 fill
-                sizes="(min-width: 1100px) 200px, (min-width: 640px) 30vw, 32vw"
+                sizes="(min-width: 1100px) 230px, (min-width: 640px) 30vw, 32vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
               />
             </div>
@@ -58,7 +58,7 @@ function Photos() {
 export default function Story() {
   return (
     <section id="historia" className="bg-sheet px-6 py-24">
-      <div className="mx-auto flex max-w-[1180px] flex-wrap items-center gap-x-16 gap-y-16">
+      <div className="mx-auto flex max-w-[1180px] flex-wrap items-center gap-x-14 gap-y-16">
         <Photos />
 
         <div className="reveal min-w-0 flex-[1_1_420px]">
