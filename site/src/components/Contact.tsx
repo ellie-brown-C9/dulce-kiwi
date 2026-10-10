@@ -3,31 +3,37 @@ import { ChatIcon, InstagramIcon, MailIcon } from "./icons";
 import { CONTACT, WA_HELLO } from "./data";
 import Wave from "./Wave";
 
-// Each contact is a cream "jar label", tilted a little, with its icon sticker on the edge
-const LABELS = [
+// Each contact is a solid sticker in its own colour, only as long as its words
+const STICKERS = [
   {
     say: "escribime por WhatsApp",
     value: CONTACT.whatsappLabel,
     href: WA_HELLO,
-    icon: <ChatIcon filled size={28} />,
-    disc: "bg-manteca text-forest",
-    tilt: "-rotate-2",
+    icon: <ChatIcon filled size={24} />,
+    sticker: "bg-manteca text-forest",
+    ico: "bg-forest text-manteca",
+    tilt: "-rotate-3",
+    offset: "",
   },
   {
     say: "seguime en Instagram",
     value: `@${CONTACT.instagram}`,
     href: `https://instagram.com/${CONTACT.instagram}`,
-    icon: <InstagramIcon size={28} />,
-    disc: "bg-terracotta text-sheet",
-    tilt: "rotate-[1.5deg] sm:translate-x-[18px]",
+    icon: <InstagramIcon size={24} />,
+    sticker: "bg-terracotta text-sheet",
+    ico: "bg-sheet text-terracotta",
+    tilt: "rotate-2",
+    offset: "sm:ml-[60px]",
   },
   {
     say: "o mandame un mail",
     value: CONTACT.email,
     href: `mailto:${CONTACT.email}`,
-    icon: <MailIcon size={28} />,
-    disc: "bg-manteca text-forest",
-    tilt: "-rotate-1 sm:translate-x-1",
+    icon: <MailIcon size={24} />,
+    sticker: "bg-sheet text-forest",
+    ico: "bg-manteca text-forest",
+    tilt: "-rotate-[1.5deg]",
+    offset: "sm:ml-5",
   },
 ];
 
@@ -69,28 +75,23 @@ export default function Contact() {
             </p>
           </div>
 
-          <ul className="grid min-w-0 flex-[1_1_400px] gap-[22px] pl-7">
-            {LABELS.map((l) => (
-              <li key={l.href}>
+          <ul className="flex min-w-0 flex-[1_1_400px] flex-col items-start gap-[18px]">
+            {STICKERS.map((l) => (
+              <li key={l.href} className={`max-w-full ${l.offset}`}>
                 <a
                   href={l.href}
-                  className={`group relative flex items-center gap-4 rounded-full bg-sheet py-4 pr-5 pl-12 text-forest shadow-[6px_6px_0_rgba(0,0,0,0.15)] transition-transform duration-300 ease-[cubic-bezier(0.3,1.5,0.5,1)] hover:translate-x-0 hover:rotate-0 hover:scale-[1.03] sm:pr-7 sm:pl-[52px] ${l.tilt}`}
+                  className={`group inline-flex max-w-full items-center gap-3.5 rounded-full py-3.5 pr-6 pl-4 shadow-[5px_5px_0_rgba(0,0,0,0.15)] transition-transform duration-300 ease-[cubic-bezier(0.3,1.5,0.5,1)] hover:rotate-0 hover:scale-105 ${l.sticker} ${l.tilt}`}
                 >
-                  <span
-                    className={`absolute top-1/2 -left-7 flex size-16 -translate-y-1/2 items-center justify-center rounded-full border-4 border-forest ${l.disc}`}
-                  >
+                  <span className={`flex size-[46px] flex-none items-center justify-center rounded-full ${l.ico}`}>
                     {l.icon}
                   </span>
-                  <span className="flex min-w-0 flex-1 flex-col">
-                    <span className="font-display text-[15px] text-ink-soft italic">{l.say}</span>
-                    <span className="font-display text-lg font-extrabold break-words sm:text-[22px]">
+                  <span className="flex min-w-0 flex-col">
+                    <span className="font-display text-sm italic opacity-80">{l.say}</span>
+                    <span className="font-display text-lg font-extrabold break-words sm:text-[23px]">
                       {l.value}
                     </span>
                   </span>
-                  <span
-                    aria-hidden="true"
-                    className="flex size-9 flex-none items-center justify-center rounded-full bg-forest text-manteca transition-transform duration-300 group-hover:rotate-45"
-                  >
+                  <span aria-hidden="true" className="text-lg transition-transform duration-300 group-hover:rotate-45">
                     ↗
                   </span>
                 </a>

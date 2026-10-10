@@ -1,90 +1,65 @@
 import Image from "next/image";
 
-// Then and now, in age order
+// Then and now, in age order; each arch sits on a block of one brand colour
 const MOMENTS = [
   {
     src: "/home/ellie-farm.webp",
     alt: "Ellie de chiquita, con una galletita en la mano, en la granja de Kumeu",
     age: "3 años",
     caption: "Kumeu, NZ",
-    arch: false,
+    block: "bg-manteca",
   },
   {
     src: "/home/ellie-baking.webp",
     alt: "Ellie a los ocho años con delantal, preparando muffins en la cocina de su casa",
     age: "8 años",
     caption: "mis primeros muffins",
-    arch: false,
+    block: "bg-terracotta",
   },
   {
     src: "/home/ellie.webp",
     alt: "Ellie sonriendo en su cocina, con un café sobre la mesa",
     age: "hoy",
     caption: "Acassuso",
-    arch: true,
+    block: "bg-forest",
   },
 ];
 
-const COLS = "grid grid-cols-[1fr_1fr_1.4fr] gap-3 sm:gap-5";
-
-/** Three photos left to right (3 → 8 → today), joined by a dotted wavy line. */
-function Timeline() {
+/** Three equal arches (3 → 8 → today); on hover a photo lifts gently off its colour block. */
+function Photos() {
   return (
-    <div className="reveal min-w-0 flex-[1_1_380px]">
-      <div className={`${COLS} items-end`}>
-        {MOMENTS.map((m) => (
-          <div
-            key={m.age}
-            className={`relative overflow-hidden shadow-[0_14px_28px_-16px_rgba(40,26,12,0.55)] ${
-              m.arch ? "shape-arch aspect-[4/5.4]" : "aspect-square rounded-full"
-            }`}
-          >
-            <Image
-              src={m.src}
-              alt={m.alt}
-              fill
-              sizes={m.arch ? "(min-width: 900px) 240px, 38vw" : "(min-width: 900px) 170px, 27vw"}
-              className="object-cover"
-            />
+    <ul className="reveal grid min-w-0 flex-[1.3_1_480px] grid-cols-3 items-end gap-4 pr-3 pb-3 sm:gap-7">
+      {MOMENTS.map((m) => (
+        <li key={m.age} className="group text-center">
+          <div className="relative">
+            <div aria-hidden="true" className={`shape-arch absolute inset-0 translate-x-3 translate-y-3 ${m.block}`} />
+            <div className="shape-arch relative aspect-[3/4.2] overflow-hidden transition-transform duration-[450ms] ease-[cubic-bezier(0.3,1.4,0.5,1)] group-hover:-translate-x-1.5 group-hover:-translate-y-1.5">
+              <Image
+                src={m.src}
+                alt={m.alt}
+                fill
+                sizes="(min-width: 1100px) 200px, (min-width: 640px) 30vw, 32vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+              />
+            </div>
           </div>
-        ))}
-      </div>
-
-      <div className={`${COLS} relative mt-4 text-center`}>
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 400 12"
-          preserveAspectRatio="none"
-          className="absolute top-2 left-[12%] h-3 w-[76%] text-forest/45"
-        >
-          <path
-            d="M0 6 Q25 0 50 6 T100 6 T150 6 T200 6 T250 6 T300 6 T350 6 T400 6"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeDasharray="6 7"
-          />
-        </svg>
-        {MOMENTS.map((m) => (
-          <div key={m.age} className="relative min-w-0">
-            <span className="inline-block rounded-full bg-forest px-3 py-0.5 font-display text-sm font-black text-manteca sm:text-base">
-              {m.age}
-            </span>
-            <span className="mt-1.5 block font-display text-xs leading-tight font-semibold text-ink-soft italic sm:text-sm">
-              {m.caption}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
+          <span className="mt-6 inline-block rounded-full bg-forest px-3 py-0.5 font-display text-sm font-black text-manteca sm:text-base">
+            {m.age}
+          </span>
+          <span className="mt-1.5 block font-display text-xs leading-tight font-semibold text-ink-soft italic sm:text-sm">
+            {m.caption}
+          </span>
+        </li>
+      ))}
+    </ul>
   );
 }
 
 export default function Story() {
   return (
     <section id="historia" className="bg-sheet px-6 py-24">
-      <div className="mx-auto flex max-w-[1180px] flex-wrap items-center gap-x-24 gap-y-16">
-        <Timeline />
+      <div className="mx-auto flex max-w-[1180px] flex-wrap items-center gap-x-16 gap-y-16">
+        <Photos />
 
         <div className="reveal min-w-0 flex-[1_1_420px]">
           <p className="eyebrow">Dos casas, una cocina</p>

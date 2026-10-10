@@ -33,3 +33,23 @@ test("contact labels speak in Ellie's voice", () => {
     assert.ok(contact.includes(line), `missing "${line}"`);
   }
 });
+
+const header = read("../src/components/Header.tsx");
+const story = read("../src/components/Story.tsx");
+
+test("header is the split menu: logo centred between the links, no masthead stars", () => {
+  assert.match(header, /md:grid-cols-\[1fr_auto_1fr\]/);
+  assert.doesNotMatch(header, /✺/);
+});
+
+test("story photos are three equal arches on colour blocks", () => {
+  for (const block of ["bg-manteca", "bg-terracotta", "bg-forest"]) {
+    assert.ok(story.includes(`block: "${block}"`), `missing ${block} block`);
+  }
+  assert.doesNotMatch(story, /strokeDasharray/);
+});
+
+test("contacts are solid stickers, not cream labels with an overlapping disc", () => {
+  assert.doesNotMatch(contact, /-left-7/);
+  assert.match(contact, /bg-terracotta text-sheet/);
+});

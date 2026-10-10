@@ -96,18 +96,30 @@ body {
     box-shadow: 0 0 0 var(--btn-shadow-color);
   }
 
-  /* Bake cards sit tilted and straighten on hover */
-  .tilt-rail > * {
+  /* Bake photos sit tilted and straighten on hover; the text under them stays straight */
+  .tilt-rail .tilt-photo {
     transition: transform 0.35s cubic-bezier(0.3, 1.5, 0.5, 1);
   }
-  .tilt-rail > :nth-child(odd) {
+  .tilt-rail > :nth-child(odd) .tilt-photo {
     transform: rotate(-2.5deg);
   }
-  .tilt-rail > :nth-child(even) {
+  .tilt-rail > :nth-child(even) .tilt-photo {
     transform: rotate(2deg) translateY(10px);
   }
-  .tilt-rail > :hover {
+  .tilt-rail > :hover .tilt-photo {
     transform: rotate(0deg) scale(1.03);
+  }
+
+  /* Rails you can click-and-drag with a mouse (see DragScroll) */
+  @media (pointer: fine) {
+    .drag-scroll {
+      cursor: grab;
+    }
+  }
+  .drag-scroll[data-dragging] {
+    cursor: grabbing;
+    scroll-snap-type: none;
+    user-select: none;
   }
 }
 

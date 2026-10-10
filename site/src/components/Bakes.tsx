@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { BAKES, WA_SPECIAL, whatsappLink } from "./data";
+import DragScroll from "./DragScroll";
 
 const CARD = "flex-[0_0_clamp(260px,26vw,340px)] snap-start";
 
@@ -19,10 +20,11 @@ export default function Bakes() {
         </p>
       </div>
 
-      <div className="no-scrollbar rail-gutter tilt-rail mt-10 flex snap-x snap-mandatory items-start gap-8 overflow-x-auto pt-6 pb-8">
+      <DragScroll className="no-scrollbar rail-gutter tilt-rail mt-10 flex snap-x snap-mandatory items-start gap-8 overflow-x-auto pt-6 pb-8">
         {BAKES.map((b) => (
           <article key={b.name} className={CARD}>
-            <div className="relative">
+            {/* Only the photo tilts; the text below stays straight */}
+            <div className="tilt-photo relative">
               <div className="shape-blob relative aspect-square overflow-hidden border-[6px] border-sheet">
                 <Image
                   src={b.img}
@@ -68,7 +70,7 @@ export default function Bakes() {
             Contame
           </a>
         </article>
-      </div>
+      </DragScroll>
     </section>
   );
 }
