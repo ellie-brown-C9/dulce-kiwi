@@ -156,3 +156,10 @@ test("Cómo pedir is a left-aligned numbered path on phones, centred columns on 
   assert.match(how, /md:text-center/);
   assert.doesNotMatch(how, /className="bg-manteca px-6 py-24 text-center"/);
 });
+
+test("floating pill steps aside at the hero button and the contact section", () => {
+  const pill = read("../src/components/FloatingWhatsApp.tsx");
+  assert.match(pill, /\[data-hero-cta\]/);
+  assert.match(pill, /contacto/);
+  assert.match(pill, /data-floating-wa/);
+});
