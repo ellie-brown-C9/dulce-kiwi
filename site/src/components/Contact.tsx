@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ChatIcon, InstagramIcon, MailIcon } from "./icons";
 import { CONTACT, WA_HELLO } from "./data";
 import Wave from "./Wave";
+import Pantry from "./Pantry";
 
 // Each contact is a solid sticker in its own colour, only as long as its words
 const STICKERS = [
@@ -45,8 +46,9 @@ export default function Contact() {
         <Wave className="-mb-px" />
       </div>
 
-      <section id="contacto" className="bg-forest px-6 pt-16 text-cream md:pt-20">
-        <div className="reveal mx-auto flex max-w-[1180px] flex-wrap items-center gap-x-24 gap-y-14">
+      <section id="contacto" className="relative bg-forest px-6 pt-16 text-cream md:pt-20">
+        <Pantry />
+        <div className="reveal relative mx-auto flex max-w-[1180px] flex-wrap items-center gap-x-24 gap-y-14">
           <div className="min-w-0 flex-[1_1_400px]">
             <p className="eyebrow text-manteca">¿Se te antojó algo?</p>
             <h2 className="mt-3 font-display text-[clamp(40px,4.6vw,62px)] leading-none font-black tracking-[-0.02em] text-sheet">
@@ -101,7 +103,10 @@ export default function Contact() {
         </div>
 
         {/* Extra bottom padding on phones so the floating WhatsApp pill doesn't cover the footer */}
-        <footer className="mx-auto mt-20 flex max-w-[1180px] flex-wrap items-center justify-between gap-x-6 gap-y-4 border-t border-cream/20 pt-6 pb-24 md:pb-8">
+        <footer
+          data-shelf=""
+          className="relative mx-auto mt-[130px] flex max-w-[1180px] flex-wrap items-center justify-between gap-x-6 gap-y-4 pt-10 pb-24 md:pb-8"
+        >
           <div className="flex items-center gap-4">
             <Image
               src="/brand/badge-kiwi.png"

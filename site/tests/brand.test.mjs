@@ -110,3 +110,16 @@ test("all six About Me doodles exist", () => {
   }
   assert.match(doodles, /aria-hidden="true"/);
 });
+
+test("contact has the pantry shelf behind it, on the footer line", () => {
+  assert.match(contact, /<Pantry \/>/);
+  assert.match(contact, /data-shelf/);
+  assert.doesNotMatch(contact, /border-t border-cream\/20/); // the shelf replaces the line
+});
+
+test("pantry canvas never takes clicks and waits for the fonts", () => {
+  const pantry = read("../src/components/Pantry.tsx");
+  assert.match(pantry, /pointer-events-none/);
+  assert.match(pantry, /aria-hidden="true"/);
+  assert.match(pantry, /document\.fonts\.ready/);
+});
