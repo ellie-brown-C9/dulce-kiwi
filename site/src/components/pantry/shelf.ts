@@ -68,6 +68,14 @@ export function layoutRow(row: ItemKind[], x0: number, x1: number): number[] {
   });
 }
 
+/** Invisible side walls (centre x, width) whose inner faces sit exactly at the plank ends. */
+export function shelfWalls(plankX0: number, plankX1: number, thickness = 100) {
+  return [
+    { x: plankX0 - thickness / 2, w: thickness },
+    { x: plankX1 + thickness / 2, w: thickness },
+  ];
+}
+
 /** px per frame. The pointer pushes no harder than this, so a fast swipe nudges instead of bulldozing. */
 export const MAX_PUSH = 10;
 export const capPush = (v: number) => Math.max(-MAX_PUSH, Math.min(MAX_PUSH, v));

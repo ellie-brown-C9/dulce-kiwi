@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
   DESKTOP_ROW, PHONE_ROW, KNOCK_TARGETS, SIZES, MIN_GAP,
-  rowFor, fitRow, layoutRow, capPush, MAX_PUSH,
+  rowFor, fitRow, layoutRow, capPush, MAX_PUSH, shelfWalls,
 } from "../src/components/pantry/shelf.ts";
 
 test("every shelf item is different", () => {
@@ -48,6 +48,12 @@ test("items spread from one end of the shelf to the other with equal gaps", () =
   const gap1 = c[1] - SIZES.vainilla.w / 2 - (c[0] + SIZES.harina.w / 2);
   const gap2 = c[2] - SIZES.ddl.w / 2 - (c[1] + SIZES.vainilla.w / 2);
   assert.ok(Math.abs(gap1 - gap2) < 1e-9);
+});
+
+test("invisible walls stand exactly at the plank ends, so nothing can be pushed off into mid-air", () => {
+  const [left, right] = shelfWalls(100, 900);
+  assert.equal(left.x + left.w / 2, 100); // inner face of the left wall
+  assert.equal(right.x - right.w / 2, 900); // inner face of the right wall
 });
 
 test("a fast swipe pushes no harder than the cap", () => {

@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, statSync } from "node:fs";
 
 const read = (rel) => readFileSync(new URL(rel, import.meta.url), "utf8");
 const css = read("../src/app/globals.css");
@@ -122,4 +122,24 @@ test("pantry canvas never takes clicks and waits for the fonts", () => {
   assert.match(pantry, /pointer-events-none/);
   assert.match(pantry, /aria-hidden="true"/);
   assert.match(pantry, /document\.fonts\.ready/);
+});
+
+// Every source file under src/, recursively
+const allSource = (dir = new URL("../src/", import.meta.url)) =>
+  readdirSync(dir).flatMap((f) => {
+    const u = new URL(f, dir);
+    if (statSync(u).isDirectory()) return allSource(new URL(`${f}/`, dir));
+    return /\.(ts|tsx)$/.test(f) ? [readFileSync(u, "utf8")] : [];
+  });
+
+test("matter-js is only ever loaded on demand", () => {
+  const src = allSource().join("\n");
+  assert.doesNotMatch(src, /^import (?!type)[^\n]*from "matter-js"/m);
+  assert.match(read("../src/components/Pantry.tsx"), /import\("matter-js"\)/);
+});
+
+test("pantry rebuilds for a new size and stays still with reduced motion", () => {
+  const pantry = read("../src/components/Pantry.tsx");
+  assert.match(pantry, /ResizeObserver/);
+  assert.match(pantry, /prefers-reduced-motion: reduce/);
 });
