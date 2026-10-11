@@ -7,10 +7,10 @@ const LINK = "decoration-manteca decoration-[3px] underline-offset-[6px] hover:u
 /** Logo far left, the three links centred on the page, and the Pedir pill on the right. Phones: logo left, links beside it. */
 export default function Header() {
   return (
-    <header className="mx-auto max-w-[1280px] px-6 py-3 md:py-5">
+    <header className="mx-auto max-w-[1280px] px-6 py-3 max-[359px]:px-5 md:py-5">
       <nav
         aria-label="Principal"
-        className="flex items-center justify-between gap-3 text-[13px] font-semibold whitespace-nowrap text-forest md:grid md:grid-cols-[1fr_auto_1fr] md:gap-8 md:text-[15px]"
+        className="flex items-center justify-between gap-3 text-[13px] font-semibold max-[359px]:gap-2 max-[359px]:text-[12px] whitespace-nowrap text-forest md:grid md:grid-cols-[1fr_auto_1fr] md:gap-8 md:text-[15px]"
       >
         <a href="#inicio" className="flex-none md:justify-self-start">
           <Image
@@ -18,12 +18,12 @@ export default function Header() {
             alt="Dulce Kiwi"
             width={1200}
             height={874}
-            className="h-[50px] w-auto md:h-24"
+            className="h-[50px] w-auto max-[359px]:h-[42px] md:h-24"
             priority
           />
         </a>
 
-        <div className="flex gap-3 md:gap-8 md:justify-self-center">
+        <div className="flex gap-3 max-[359px]:gap-2 md:gap-8 md:justify-self-center">
           <a href="#horno" className={LINK}>
             Esta semana
           </a>

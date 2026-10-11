@@ -51,7 +51,7 @@ export default function Contact() {
         <div className="reveal relative mx-auto flex max-w-[1180px] flex-wrap items-center gap-x-24 gap-y-14">
           <div className="min-w-0 flex-[1_1_400px]">
             <p className="eyebrow text-manteca">¿Se te antojó algo?</p>
-            <h2 className="mt-3 font-display text-[clamp(40px,4.6vw,62px)] leading-none font-black tracking-[-0.02em] text-sheet">
+            <h2 className="mt-3 font-display text-[clamp(40px,4.6vw,62px)] leading-none font-black tracking-[-0.02em] text-sheet max-[359px]:text-[34px]">
               Escribime, te leo con el{" "}
               <em className="relative font-extrabold whitespace-nowrap text-manteca">
                 mate en la mano.

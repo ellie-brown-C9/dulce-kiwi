@@ -49,7 +49,7 @@ const { sw, iw } = await page.evaluate(() => ({
   sw: document.documentElement.scrollWidth,
   iw: window.innerWidth,
 }));
-if (sw > iw) problems.push(`page scrolls sideways: scrollWidth ${sw} > ${iw}`);
+if (sw > WIDTH) problems.push(`page scrolls sideways: scrollWidth ${sw} > ${WIDTH}`);
 
 // 2a. At rest (top of page), sections further down are not left invisible,
 //     so link previews, full-page captures and stalled timelines still show them
