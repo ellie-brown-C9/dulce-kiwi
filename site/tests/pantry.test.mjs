@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  DESKTOP_ROW, PHONE_ROW, KNOCK_TARGETS, SIZES, MIN_GAP,
+  DESKTOP_ROW, PHONE_ROW, KNOCK_TARGETS, SIZES, MIN_GAP, PLANK_OVERHANG, ITEM_INSET,
   rowFor, fitRow, layoutRow, capPush, MAX_PUSH, shelfWalls,
 } from "../src/components/pantry/shelf.ts";
 
@@ -34,6 +34,12 @@ test("on a 320px phone the row still fits on the shelf", () => {
   const used = row.reduce((t, k) => t + SIZES[k].w, 0) + MIN_GAP * (row.length - 1);
   assert.ok(used <= x1 - x0, `needs ${used}px, has ${x1 - x0}px`);
   for (const t of KNOCK_TARGETS) assert.ok(row.includes(t));
+});
+
+test("a 375px phone (the reference phone) shows all six items", () => {
+  // section 375 wide, 24px padding, plank overhangs PLANK_OVERHANG, items inset ITEM_INSET
+  const x0 = 24 - PLANK_OVERHANG + ITEM_INSET, x1 = 375 - 24 + PLANK_OVERHANG - ITEM_INSET;
+  assert.deepEqual(fitRow(PHONE_ROW, x0, x1), PHONE_ROW);
 });
 
 test("a row that already fits is left alone", () => {

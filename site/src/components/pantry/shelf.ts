@@ -40,8 +40,8 @@ export const rowFor = (width: number) => (width < PHONE_MAX_WIDTH ? PHONE_ROW : 
 /** The manteca lands on the first, the punnet on the second. Both rows include them. */
 export const KNOCK_TARGETS = ["vainilla", "leche"] as const satisfies readonly [ItemKind, ItemKind];
 
-export const MIN_GAP = 8; // px between packages, at the tightest
-export const ITEM_INSET = 10; // px from each end of the plank to the first and last package
+export const MIN_GAP = 6; // px between packages, at the tightest
+export const ITEM_INSET = 8; // px from each end of the plank to the first and last package
 export const PLANK_OVERHANG = 8; // px the plank sticks out past the content column
 
 const widthOf = (row: ItemKind[]) =>
