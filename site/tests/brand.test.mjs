@@ -37,9 +37,12 @@ test("contact labels speak in Ellie's voice", () => {
 const header = read("../src/components/Header.tsx");
 const story = read("../src/components/Story.tsx");
 
-test("header is the split menu: logo centred between the links, no masthead stars", () => {
+test("header: logo far left, links centred, Pedir on the right", () => {
   assert.match(header, /md:grid-cols-\[1fr_auto_1fr\]/);
-  assert.doesNotMatch(header, /✺/);
+  assert.match(header, /md:justify-self-start/); // logo column
+  assert.match(header, /md:justify-self-center/); // links column
+  assert.match(header, /md:justify-self-end/); // Pedir pill
+  assert.doesNotMatch(header, /col-span-3|border-y-2|✺/); // no phone ruled row, no stars
 });
 
 test("story photos are three equal arches on colour blocks", () => {
