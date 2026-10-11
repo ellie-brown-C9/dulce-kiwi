@@ -61,3 +61,20 @@ test("buttons speak as Ellie (first person), never about Ellie", () => {
   assert.doesNotMatch(components, /Pedíselo a Ellie|Escribile a Ellie/);
   assert.match(read("../src/components/Bakes.tsx"), /Pedímelo/);
 });
+
+const hero = read("../src/components/Hero.tsx");
+
+test("hero photo is the wobbly blob, not an arch", () => {
+  assert.match(hero, /shape-blob/);
+  assert.doesNotMatch(hero, /shape-arch/);
+});
+
+test("hero main button is marked for the floating pill", () => {
+  assert.match(hero, /data-hero-cta/);
+});
+
+test("phone hero: headline sits on a cream sticker over the photo", () => {
+  assert.match(hero, /-mt-\[70px\]/);
+  assert.match(hero, /bg-sheet/);
+  assert.match(hero, /md:bg-transparent/);
+});
