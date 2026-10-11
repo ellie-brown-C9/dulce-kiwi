@@ -91,3 +91,11 @@ test("special shows item details inline on desktop and as a small line on phones
   assert.match(special, /hidden md:inline/);
   assert.match(special, /md:hidden/);
 });
+
+test("all six About Me doodles exist", () => {
+  const doodles = read("../src/components/Doodles.tsx");
+  for (const name of ["sun", "sheep", "whisk", "muffin", "mate", "heart"]) {
+    assert.match(doodles, new RegExp(`\b${name}:`), `missing ${name}`);
+  }
+  assert.match(doodles, /aria-hidden="true"/);
+});
