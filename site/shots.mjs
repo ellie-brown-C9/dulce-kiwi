@@ -11,17 +11,18 @@ const CHROME =
 const URL = process.env.URL || "http://localhost:3000";
 const MOBILE = process.env.MOBILE === "1";
 const REDUCED = process.env.REDUCED === "1";
+const WIDTH = Number(process.env.WIDTH) || (MOBILE ? 390 : 1440);
 const OUT =
   process.env.OUT ||
-  `shots/${MOBILE ? "phone" : "desktop"}${REDUCED ? "-reduced" : ""}`;
+  `shots/${MOBILE ? "phone" : "desktop"}${process.env.WIDTH ? `-${WIDTH}` : ""}${REDUCED ? "-reduced" : ""}`;
 mkdirSync(OUT, { recursive: true });
 
 const browser = await puppeteer.launch({
   executablePath: CHROME,
   headless: "new",
   defaultViewport: MOBILE
-    ? { width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true }
-    : { width: 1440, height: 900, deviceScaleFactor: 1 },
+    ? { width: WIDTH, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true }
+    : { width: WIDTH, height: 900, deviceScaleFactor: 1 },
   args: ["--hide-scrollbars", "--force-color-profile=srgb"],
 });
 const page = await browser.newPage();
@@ -88,6 +89,44 @@ if (!REDUCED && !animated.length) {
   problems.push("no animations running (styles missing or stale?)");
 }
 
+// 4. Story drum: pinned with motion, a plain stack with reduced motion
+const drum = await page.evaluate(() => Boolean(document.querySelector("#historia[data-drum]")));
+if (REDUCED && drum) problems.push("story drum is pinned despite reduced motion");
+if (!REDUCED && !drum) problems.push("story drum did not start");
+
+// 5. Every visible contact link is really clickable (the pantry canvas must not cover them)
+const blocked = await page.evaluate(async () => {
+  document.getElementById("contacto")?.scrollIntoView({ behavior: "instant", block: "end" });
+  await new Promise((r) => setTimeout(r, 400));
+  return [...document.querySelectorAll("#contacto a")]
+    .filter((a) => {
+      const r = a.getBoundingClientRect();
+      if (r.top < 0 || r.bottom > window.innerHeight) return false;
+      const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+      return !(hit && a.contains(hit));
+    })
+    .map((a) => a.getAttribute("href"));
+});
+await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+await new Promise((r) => setTimeout(r, 600));
+if (blocked.length) problems.push(`contact links covered: ${blocked.join(", ")}`);
+
+// 6. Phones: headline and order button on a 375x667 first screen; floating pill hidden there
+if (MOBILE) {
+  const small = await browser.newPage();
+  await small.setViewport({ width: 375, height: 667, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
+  await small.goto(URL, { waitUntil: "networkidle0", timeout: 60000 });
+  await new Promise((r) => setTimeout(r, 1500));
+  const fold = await small.evaluate(() => ({
+    h1: document.querySelector("#inicio h1")?.getBoundingClientRect().bottom ?? 9999,
+    cta: document.querySelector("[data-hero-cta]")?.getBoundingClientRect().bottom ?? 9999,
+    pill: Number(getComputedStyle(document.querySelector("[data-floating-wa]")).opacity),
+  }));
+  if (fold.h1 > 667 || fold.cta > 667) problems.push(`hero not on the first screen: h1 ${fold.h1}, button ${fold.cta}`);
+  if (fold.pill > 0.01) problems.push("floating pill shows while the hero button is on screen");
+  await small.close();
+}
+
 // Screenshots: top of page, each section, full page
 await new Promise((r) => setTimeout(r, 1200)); // let the hero pop-in finish
 await page.screenshot({ path: `${OUT}/00-top.png` });
@@ -98,8 +137,19 @@ for (const id of ["inicio", "especial", "horno", "historia", "pedidos", "contact
     return Boolean(el);
   }, id);
   if (!found) continue;
-  await new Promise((r) => setTimeout(r, 700));
+  // the contact shelf needs a moment for the opening knock to land
+  await new Promise((r) => setTimeout(r, id === "contacto" ? 3500 : 700));
   await page.screenshot({ path: `${OUT}/sec-${id}.png` });
+}
+// The story half way through the drum
+if (!REDUCED) {
+  await page.evaluate(() => {
+    const s = document.getElementById("historia");
+    const top = s.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: top + (s.offsetHeight - window.innerHeight) * 0.5, behavior: "instant" });
+  });
+  await new Promise((r) => setTimeout(r, 800));
+  await page.screenshot({ path: `${OUT}/sec-historia-mid.png` });
 }
 await page.screenshot({ path: `${OUT}/full.png`, fullPage: true });
 await browser.close();
