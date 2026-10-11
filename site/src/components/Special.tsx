@@ -19,22 +19,23 @@ function PromoName({ name, highlight }: { name: string; highlight?: string }) {
 export default function Special({ promo }: { promo: Promo }) {
   return (
     <section id="especial" className="scroll-mt-6 px-6 pb-20">
-      <div className="reveal mx-auto grid max-w-[1180px] items-center gap-10 rounded-[28px] bg-forest p-6 text-cream sm:p-10 md:grid-cols-[1fr_1.15fr] md:gap-14 md:p-12">
-        <figure className="relative m-0">
-          <div className="shape-arch relative aspect-[10/11] overflow-hidden border-[6px] border-sheet">
+      {/* Phones: the photo pops out over the card's top edge, hence the top margin */}
+      <div className="reveal mx-auto mt-[100px] grid max-w-[1180px] items-center gap-8 rounded-[28px] bg-forest px-6 pt-0 pb-7 text-cream sm:px-10 md:mt-0 md:grid-cols-[1fr_1.15fr] md:gap-14 md:p-12">
+        <figure className="relative m-0 mx-auto -mt-[100px] w-[230px] md:mt-0 md:w-full md:max-w-[480px]">
+          <div className="shape-blob relative aspect-square -rotate-3 overflow-hidden border-[6px] border-sheet shadow-[0_10px_26px_rgba(0,0,0,0.2)] md:border-8">
             <Image
               src={promo.photoSrc}
               alt={promo.photoAlt}
               fill
-              sizes="(min-width: 768px) 480px, 90vw"
+              sizes="(min-width: 768px) 480px, 230px"
               className="object-cover"
             />
           </div>
-          <p className="absolute bottom-[8%] left-0 flex aspect-square w-[34%] max-w-[150px] -rotate-[8deg] flex-col items-center justify-center rounded-full bg-manteca text-center text-forest">
-            <span className="font-display text-[clamp(20px,2.6vw,30px)] leading-none font-black">
+          <p className="absolute -right-6 bottom-2 flex aspect-square w-[92px] -rotate-[8deg] flex-col items-center justify-center rounded-full bg-manteca text-center text-forest md:-right-[4%] md:bottom-[4%] md:w-[30%] md:max-w-[150px]">
+            <span className="font-display text-[18px] leading-none font-black md:text-[clamp(20px,2.6vw,30px)]">
               ${promo.price.toLocaleString("es-AR")}
             </span>
-            <span className="mt-1 text-[11px] font-bold tracking-[0.12em] uppercase">
+            <span className="mt-1 text-[9px] font-bold tracking-[0.12em] uppercase md:text-[11px]">
               la caja
             </span>
           </p>
@@ -50,11 +51,21 @@ export default function Special({ promo }: { promo: Promo }) {
           <p className="mt-3 font-display text-xl text-manteca italic">{promo.tagline}</p>
           <ul className="mt-6 grid gap-2 text-[15px] leading-relaxed text-cream/90">
             {promo.items.map((item) => (
-              <li key={item} className="flex gap-2.5">
+              <li key={item.name} className="flex gap-2.5">
                 <span aria-hidden="true" className="text-manteca">
                   ✺
                 </span>
-                <span>{item}</span>
+                <span>
+                  {item.name}
+                  {item.detail && (
+                    <>
+                      <span className="hidden md:inline"> ({item.detail})</span>
+                      <span className="block font-display text-[13px] leading-snug text-cream/60 italic md:hidden">
+                        {item.detail}
+                      </span>
+                    </>
+                  )}
+                </span>
               </li>
             ))}
           </ul>

@@ -23,3 +23,16 @@ test("end date is written the Argentine way", () => {
   assert.equal(formatPromoEnd("2026-10-15"), "15 de octubre");
   assert.equal(formatPromoEnd("2026-12-01"), "1 de diciembre");
 });
+
+test("box items keep their explanations as a separate detail", () => {
+  const p = getActivePromo("2026-10-10");
+  const afghans = p.items.find((i) => i.name === "2 Afghans");
+  assert.equal(afghans?.detail, "galletitas neozelandesas con ganache de chocolate");
+  const lamingtons = p.items.find((i) => i.name === "2 lamingtons");
+  assert.equal(
+    lamingtons?.detail,
+    "bizcocho neozelandés bañado en chocolate y coco rallado, con dulce de leche",
+  );
+  assert.equal(p.items.length, 6);
+  assert.ok(p.items.every((i) => i.name.trim().length > 0));
+});

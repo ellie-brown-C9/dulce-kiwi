@@ -78,3 +78,16 @@ test("phone hero: headline sits on a cream sticker over the photo", () => {
   assert.match(hero, /bg-sheet/);
   assert.match(hero, /md:bg-transparent/);
 });
+
+const special = read("../src/components/Special.tsx");
+
+test("special photo is the wobbly blob, popping out of the card on phones", () => {
+  assert.match(special, /shape-blob/);
+  assert.doesNotMatch(special, /shape-arch/);
+  assert.match(special, /-mt-\[100px\]/);
+});
+
+test("special shows item details inline on desktop and as a small line on phones", () => {
+  assert.match(special, /hidden md:inline/);
+  assert.match(special, /md:hidden/);
+});

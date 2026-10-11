@@ -15,6 +15,9 @@ export const WA_SPECIAL = whatsappLink(
   "¡Hola Ellie! Quería consultarte por un pedido especial.",
 );
 
+/** One thing in the box. `detail` explains an unfamiliar name (shown smaller on phones). */
+export type PromoItem = { name: string; detail?: string };
+
 export type Promo = {
   id: string;
   name: string;
@@ -23,7 +26,7 @@ export type Promo = {
   startDate: string; // YYYY-MM-DD, inclusive
   endDate: string; // YYYY-MM-DD, inclusive
   tagline: string;
-  items: string[];
+  items: PromoItem[];
   price: number;
   scarcityLine: string;
   photoSrc: string;
@@ -41,12 +44,15 @@ export const PROMOS: Promo[] = [
     endDate: "2026-10-15",
     tagline: "un poquito de acá, un poquito de allá — para regalar",
     items: [
-      "Mini budín de zanahoria",
-      "2 scones de queso",
-      "2 rodajas de budín de limón",
-      "2 Afghans (galletitas neozelandesas con ganache de chocolate)",
-      "2 lamingtons (bizcocho neozelandés bañado en chocolate y coco rallado, con dulce de leche)",
-      "2 mini rogels",
+      { name: "Mini budín de zanahoria" },
+      { name: "2 scones de queso" },
+      { name: "2 rodajas de budín de limón" },
+      { name: "2 Afghans", detail: "galletitas neozelandesas con ganache de chocolate" },
+      {
+        name: "2 lamingtons",
+        detail: "bizcocho neozelandés bañado en chocolate y coco rallado, con dulce de leche",
+      },
+      { name: "2 mini rogels" },
     ],
     price: 40000,
     scarcityLine: "Hago todo a mano, así que son solo 20 cajas.",
