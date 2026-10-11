@@ -45,10 +45,8 @@ await page.evaluate(async () => {
 const problems = [];
 
 // 1. No sideways scrolling
-const { sw, iw } = await page.evaluate(() => ({
-  sw: document.documentElement.scrollWidth,
-  iw: window.innerWidth,
-}));
+// (compare with the set width: on phones the layout viewport widens to fit the page)
+const sw = await page.evaluate(() => document.documentElement.scrollWidth);
 if (sw > WIDTH) problems.push(`page scrolls sideways: scrollWidth ${sw} > ${WIDTH}`);
 
 // 2a. At rest (top of page), sections further down are not left invisible,

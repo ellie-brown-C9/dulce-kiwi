@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { reelPosition, slideLook, drumAllowed, MIN_DRUM_HEIGHT } from "../src/components/reel.ts";
+import { reelPosition, slideLook, drumAllowed, viewportChanged, MIN_DRUM_HEIGHT } from "../src/components/reel.ts";
 
 test("the reel starts on the first photo, ends on the last, and passes the middle at half way", () => {
   assert.equal(reelPosition(0), 0);
@@ -41,6 +41,15 @@ test("a neighbouring slide is smaller, faded and swung further", () => {
   assert.equal(prev.current, false);
   assert.equal(prev.origin, "center bottom"); // shrinks towards the top as it leaves
   assert.equal(slideLook(2, 1, -2.5).origin, "center top");
+});
+
+test("an iPhone SE-sized screen in Safari (about 548px tall with toolbars) still gets the drum", () => {
+  assert.equal(drumAllowed({ reducedMotion: false, viewportHeight: 548 }), true);
+});
+
+test("only a width change re-decides the drum, so the address bar sliding away mid-scroll can't flip it", () => {
+  assert.equal(viewportChanged({ w: 375, h: 553 }, { w: 375, h: 628 }), false); // toolbar collapsed
+  assert.equal(viewportChanged({ w: 375, h: 628 }, { w: 667, h: 375 }), true); // rotated
 });
 
 test("the drum runs only with motion allowed and a tall enough screen", () => {

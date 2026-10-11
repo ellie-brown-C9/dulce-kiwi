@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useSyncExternalStore, type CSSProperties, type Ref } from "react";
 import { Doodle, type DoodleName } from "./Doodles";
-import { PIN_SCREENS, drumAllowed, reelPosition, slideLook } from "./reel";
+import { PIN_SCREENS, drumAllowed, reelPosition, slideLook, viewportChanged } from "./reel";
 
 type Moment = {
   src: string;
@@ -53,17 +53,35 @@ const DOODLE_SPOTS: CSSProperties[] = [
 ];
 
 const REDUCE = "(prefers-reduced-motion: reduce)";
+// Decided once and kept until the width changes, so the address bar sliding away mid-scroll can't flip it
+let drumDecision: boolean | null = null;
+let decidedAt = { w: 0, h: 0 };
+const decide = () => {
+  decidedAt = { w: window.innerWidth, h: window.innerHeight };
+  drumDecision = drumAllowed({ reducedMotion: window.matchMedia(REDUCE).matches, viewportHeight: window.innerHeight });
+};
 const subscribe = (onChange: () => void) => {
   const mq = window.matchMedia(REDUCE);
-  mq.addEventListener("change", onChange);
-  window.addEventListener("resize", onChange);
+  const onMotion = () => {
+    decide();
+    onChange();
+  };
+  const onResize = () => {
+    if (!viewportChanged(decidedAt, { w: window.innerWidth, h: window.innerHeight })) return;
+    decide();
+    onChange();
+  };
+  mq.addEventListener("change", onMotion);
+  window.addEventListener("resize", onResize);
   return () => {
-    mq.removeEventListener("change", onChange);
-    window.removeEventListener("resize", onChange);
+    mq.removeEventListener("change", onMotion);
+    window.removeEventListener("resize", onResize);
   };
 };
-const drumNow = () =>
-  drumAllowed({ reducedMotion: window.matchMedia(REDUCE).matches, viewportHeight: window.innerHeight });
+const drumNow = () => {
+  if (drumDecision === null) decide();
+  return drumDecision as boolean;
+};
 
 function Heading() {
   return (

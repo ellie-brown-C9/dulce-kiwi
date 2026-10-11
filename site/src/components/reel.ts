@@ -2,8 +2,9 @@
 
 /** Extra screens of scrolling the drum holds the page for (3 photos). */
 export const PIN_SCREENS = 1.4;
-/** Below this viewport height (px) a slide doesn't fit, so the section stays a plain stack. */
-export const MIN_DRUM_HEIGHT = 560;
+/** Below this viewport height (px) a slide doesn't fit, so the section stays a plain stack.
+ *  Low enough for an iPhone SE in Safari with its toolbars showing (~548px). */
+export const MIN_DRUM_HEIGHT = 500;
 /** Share of each step the reel rests on a photo before rolling to the next. */
 export const HOLD = 0.24;
 
@@ -38,3 +39,6 @@ export function slideLook(i: number, pos: number, restTilt: number) {
 /** The drum needs motion allowed and enough height for a photo and its paragraph. */
 export const drumAllowed = (o: { reducedMotion: boolean; viewportHeight: number }) =>
   !o.reducedMotion && o.viewportHeight >= MIN_DRUM_HEIGHT;
+
+/** Phones resize the viewport height as the address bar slides away; only a new width (or rotation) re-decides the drum. */
+export const viewportChanged = (prev: { w: number; h: number }, next: { w: number; h: number }) => prev.w !== next.w;
