@@ -143,3 +143,9 @@ test("pantry rebuilds for a new size and stays still with reduced motion", () =>
   assert.match(pantry, /ResizeObserver/);
   assert.match(pantry, /prefers-reduced-motion: reduce/);
 });
+
+test("phone bakes rail shows only a thin sliver of the next card", () => {
+  const bakes = read("../src/components/Bakes.tsx");
+  assert.match(bakes, /basis-\[calc\(100vw-var\(--gutter\)-40px\)\]/);
+  assert.match(bakes, /gap-4 sm:gap-8/);
+});
