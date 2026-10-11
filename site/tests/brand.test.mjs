@@ -149,3 +149,10 @@ test("phone bakes rail shows only a thin sliver of the next card", () => {
   assert.match(bakes, /basis-\[calc\(100vw-var\(--gutter\)-40px\)\]/);
   assert.match(bakes, /gap-4 sm:gap-8/);
 });
+
+test("Cómo pedir is a left-aligned numbered path on phones, centred columns on desktop", () => {
+  const how = read("../src/components/HowToOrder.tsx");
+  assert.match(how, /before:border-dotted/);
+  assert.match(how, /md:text-center/);
+  assert.doesNotMatch(how, /className="bg-manteca px-6 py-24 text-center"/);
+});
