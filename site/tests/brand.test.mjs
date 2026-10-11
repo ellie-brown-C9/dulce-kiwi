@@ -45,11 +45,22 @@ test("header: logo far left, links centred, Pedir on the right", () => {
   assert.doesNotMatch(header, /col-span-3|border-y-2|✺/); // no phone ruled row, no stars
 });
 
-test("story photos are three equal arches on colour blocks", () => {
-  for (const block of ["bg-manteca", "bg-terracotta", "bg-forest"]) {
-    assert.ok(story.includes(`block: "${block}"`), `missing ${block} block`);
+test("story photos are wobbly blobs with white borders, no colour blocks", () => {
+  assert.match(story, /shape-blob/);
+  assert.match(story, /border-white/);
+  assert.doesNotMatch(story, /shape-arch|block:/);
+});
+
+test("story pins only while the drum runs and pops the six doodles", () => {
+  assert.match(story, /data-drum/);
+  assert.match(story, /useSyncExternalStore/);
+  for (const name of ["sun", "sheep", "whisk", "muffin", "mate", "heart"]) {
+    assert.ok(story.includes(`"${name}"`), `missing ${name}`);
   }
-  assert.doesNotMatch(story, /strokeDasharray/);
+});
+
+test("no arch shape is left anywhere", () => {
+  assert.doesNotMatch(css + components, /shape-arch/);
 });
 
 test("contacts are solid stickers, not cream labels with an overlapping disc", () => {

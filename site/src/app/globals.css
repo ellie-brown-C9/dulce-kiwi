@@ -71,9 +71,6 @@ body {
   }
 
   /* Photo shapes */
-  .shape-arch {
-    border-radius: 999px 999px 1.25rem 1.25rem;
-  }
   .shape-blob {
     border-radius: 46% 54% 48% 52% / 52% 46% 54% 48%;
   }
@@ -120,6 +117,25 @@ body {
   .drag-scroll[data-dragging] {
     cursor: grabbing;
     user-select: none;
+  }
+
+  /* About Me drum (Story.tsx): the window fades at its edges, and each slide's doodles
+     spring out when it becomes the current one. Outside the drum they just sit tilted. */
+  .doodle {
+    transform: rotate(var(--r, 0deg));
+  }
+  .drum-window {
+    mask-image: linear-gradient(transparent, #000 10%, #000 90%, transparent);
+  }
+  .drum-slide .doodle {
+    transform: scale(0) rotate(-30deg);
+    transition: transform 0.5s cubic-bezier(0.3, 1.7, 0.5, 1);
+  }
+  .drum-slide[data-current] .doodle {
+    transform: scale(1) rotate(var(--r, 0deg));
+  }
+  .drum-slide[data-current] .doodle + .doodle {
+    transition-delay: 0.1s;
   }
 }
 
