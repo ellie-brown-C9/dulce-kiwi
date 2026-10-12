@@ -67,9 +67,9 @@ export default function Hero() {
       {/* Phones show the buttons before the intro; desktop the intro first */}
       <div className="flex min-w-0 flex-col items-start md:col-start-1 md:row-start-2 md:self-start">
         <p className="order-2 mt-6 max-w-[460px] text-base leading-[1.6] text-ink-soft md:order-1 md:text-lg md:leading-[1.65]">
-          Soy Ellie. Crecí en una granja en Nueva Zelanda y ahora horneo cada
-          semana en mi cocina, con ingredientes de verdad: nueces, dátiles,
-          fruta y harinas integrales.
+          Soy Ellie. De chica vendía lo que horneaba en la puerta de casa, en
+          una granja de Nueva Zelanda. Fui pastelera en cafés, crucé el mundo,
+          y extrañaba lo más lindo de hornear: compartirlo con gente nueva.
         </p>
         <div className="order-1 mt-6 flex flex-wrap items-center gap-x-7 gap-y-4 md:order-2 md:mt-9">
           <a
@@ -84,7 +84,7 @@ export default function Hero() {
             href="#horno"
             className="font-bold text-forest underline decoration-manteca decoration-[3px] underline-offset-[7px]"
           >
-            Qué hay esta semana ↓
+            Ver lo que horneo ↓
           </a>
         </div>
       </div>

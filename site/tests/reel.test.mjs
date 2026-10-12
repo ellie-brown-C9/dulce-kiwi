@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { reelPosition, slideLook, drumAllowed, viewportChanged, MIN_DRUM_HEIGHT } from "../src/components/reel.ts";
+import { reelPosition, slideLook, routeLook, drumAllowed, viewportChanged, MIN_DRUM_HEIGHT } from "../src/components/reel.ts";
 
 test("the reel starts on the first photo, ends on the last, and passes the middle at half way", () => {
   assert.equal(reelPosition(0), 0);
@@ -43,8 +43,9 @@ test("a neighbouring slide is smaller, faded and swung further", () => {
   assert.equal(slideLook(2, 1, -2.5).origin, "center top");
 });
 
-test("an iPhone SE-sized screen in Safari (about 548px tall with toolbars) still gets the drum", () => {
-  assert.equal(drumAllowed({ reducedMotion: false, viewportHeight: 548 }), true);
+test("a typical phone in Safari (about 664px tall with toolbars) gets the drum; an iPhone SE (about 548px) gets the stack", () => {
+  assert.equal(drumAllowed({ reducedMotion: false, viewportHeight: 664 }), true);
+  assert.equal(drumAllowed({ reducedMotion: false, viewportHeight: 548 }), false);
 });
 
 test("only a width change re-decides the drum, so the address bar sliding away mid-scroll can't flip it", () => {
@@ -57,4 +58,16 @@ test("the drum runs only with motion allowed and a tall enough screen", () => {
   assert.equal(drumAllowed({ reducedMotion: true, viewportHeight: 844 }), false);
   assert.equal(drumAllowed({ reducedMotion: false, viewportHeight: 390 }), false); // landscape phone
   assert.equal(drumAllowed({ reducedMotion: false, viewportHeight: MIN_DRUM_HEIGHT }), true);
+});
+
+test("the route lights the stop the reel is nearest and fills the line to match", () => {
+  assert.deepEqual(routeLook(0), { stop: 0, fill: 0 });
+  assert.deepEqual(routeLook(1), { stop: 1, fill: 0.5 });
+  assert.deepEqual(routeLook(2), { stop: 2, fill: 1 });
+});
+
+test("mid-roll the route switches stop half way between photos", () => {
+  assert.equal(routeLook(0.4).stop, 0);
+  assert.equal(routeLook(0.6).stop, 1);
+  assert.ok(Math.abs(routeLook(1.5).fill - 0.75) < 1e-9);
 });

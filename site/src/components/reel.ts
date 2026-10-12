@@ -2,9 +2,9 @@
 
 /** Extra screens of scrolling the drum holds the page for (3 photos). */
 export const PIN_SCREENS = 1.4;
-/** Below this viewport height (px) a slide doesn't fit, so the section stays a plain stack.
- *  Low enough for an iPhone SE in Safari with its toolbars showing (~548px). */
-export const MIN_DRUM_HEIGHT = 500;
+/** Below this viewport height (px) the longest slide doesn't fit, so the section stays a plain stack.
+ *  Low enough for a typical phone in Safari with its toolbars showing (~664px); an iPhone SE gets the stack. */
+export const MIN_DRUM_HEIGHT = 640;
 /** Share of each step the reel rests on a photo before rolling to the next. */
 export const HOLD = 0.24;
 
@@ -34,6 +34,11 @@ export function slideLook(i: number, pos: number, restTilt: number) {
     current: Math.abs(delta) < 0.25,
     origin: (delta < 0 ? "center bottom" : "center top") as "center top" | "center bottom",
   };
+}
+
+/** The route beside the drum: which stop is lit, and how much of the line (0–1) is filled. */
+export function routeLook(pos: number, count = 3) {
+  return { stop: Math.round(pos), fill: pos / (count - 1) };
 }
 
 /** The drum needs motion allowed and enough height for a photo and its paragraph. */

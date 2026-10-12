@@ -10,14 +10,14 @@ export default function Bakes() {
     <section id="horno" className="pt-20 pb-24">
       <div className="reveal mx-auto flex max-w-[1280px] flex-wrap items-end justify-between gap-x-12 gap-y-4 px-6">
         <div className="flex-[1_1_420px]">
-          <p className="eyebrow">Esta semana en el horno</p>
+          <p className="eyebrow">Mis clásicos y algo más</p>
           <h2 className="mt-3 font-display text-[clamp(38px,4.6vw,60px)] leading-none font-black tracking-[-0.02em] text-forest">
-            Lo que salió <em className="font-extrabold text-terracotta">del horno</em>
+            Lo que sale <em className="font-extrabold text-terracotta">de mi horno</em>
           </h2>
         </div>
         <p className="flex-[0_1_380px] leading-[1.65] text-ink-soft">
-          No es un menú fijo: cambia con la estación y con lo que encuentro en
-          la verdulería. Si algo te tienta, escribime y te lo guardo.
+          Acá van algunos de mis clásicos, que hago siempre, y algo de estación
+          que va rotando. ¿No ves lo que querés? Escribime: casi siempre se puede.
         </p>
       </div>
 

@@ -125,7 +125,12 @@ body {
     transform: rotate(var(--r, 0deg));
   }
   .drum-window {
-    mask-image: linear-gradient(transparent, #000 10%, #000 90%, transparent);
+    mask-image: linear-gradient(transparent, #000 6%, #000 94%, transparent);
+  }
+  @media (min-width: 48rem) {
+    .drum-window {
+      mask-image: linear-gradient(transparent, #000 10%, #000 90%, transparent);
+    }
   }
   .drum-slide .doodle {
     transform: scale(0) rotate(-30deg);
@@ -136,6 +141,34 @@ body {
   }
   .drum-slide[data-current] .doodle + .doodle {
     transition-delay: 0.1s;
+  }
+
+  /* The route beside the drum: the line fills with --fill (set on the section), the current stop lights up */
+  .route-fill {
+    transform: scaleY(var(--fill, 0));
+  }
+  .route-fill-x {
+    transform: scaleX(var(--fill, 0));
+  }
+  .route-stop > :not(.route-dot) {
+    opacity: 0.45;
+    transition: opacity 0.3s;
+  }
+  .route-stop[data-current] > * {
+    opacity: 1;
+  }
+  .route-dot {
+    border-color: rgb(52 80 63 / 0.45);
+    background-color: var(--color-cream);
+    transition:
+      background-color 0.3s,
+      border-color 0.3s,
+      box-shadow 0.3s;
+  }
+  .route-stop[data-current] .route-dot {
+    border-color: var(--color-terracotta);
+    background-color: var(--color-terracotta);
+    box-shadow: 0 0 0 5px rgb(217 102 59 / 0.18);
   }
 }
 
