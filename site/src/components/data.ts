@@ -89,7 +89,7 @@ export type Bake = {
 
 export const BAKES: Bake[] = [
   {
-    name: "Budín de zanahoria y nueces",
+    name: "Budín de zanahoria o banana",
     detail: "Húmedo, especiado, con nueces tostadas arriba.",
     note: "un clásico de casa",
     img: "/home/bake-carrot.webp",

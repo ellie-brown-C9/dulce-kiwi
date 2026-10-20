@@ -10,14 +10,15 @@ export default function Bakes() {
     <section id="horno" className="pt-20 pb-24">
       <div className="reveal mx-auto flex max-w-[1280px] flex-wrap items-end justify-between gap-x-12 gap-y-4 px-6">
         <div className="flex-[1_1_420px]">
-          <p className="eyebrow">Mis clásicos y algo más</p>
+          <p className="eyebrow">Para inspirarte</p>
           <h2 className="mt-3 font-display text-[clamp(38px,4.6vw,60px)] leading-none font-black tracking-[-0.02em] text-forest">
             Lo que sale <em className="font-extrabold text-terracotta">de mi horno</em>
           </h2>
         </div>
         <p className="flex-[0_1_380px] leading-[1.65] text-ink-soft">
-          Acá van algunos de mis clásicos, que hago siempre, y algo de estación
-          que va rotando. ¿No ves lo que querés? Escribime: casi siempre se puede.
+          Esto es solo una muestra. Lo que no ves acá, también lo hago: tortas,
+          brownies, galletitas, tartas dulces, lo que se te ocurra.
+          Pedímelo por WhatsApp.
         </p>
       </div>
 
@@ -55,15 +56,17 @@ export default function Bakes() {
         ))}
 
         <article
-          className={`${CARD} flex aspect-square flex-col justify-end rounded-[28px] bg-forest px-7 py-8 text-cream`}
+          className={`${CARD} flex aspect-square flex-col justify-between rounded-[28px] bg-forest px-7 py-8 text-cream`}
         >
-          <h3 className="font-display text-[28px] leading-[1.1] font-extrabold text-sheet">
-            ¿No está lo que buscás?
-          </h3>
-          <p className="mt-3 text-[15px] leading-relaxed text-cream/85">
-            Un cumpleaños, una mesa dulce, algo para el mate… Contame qué tenés
-            ganas de comer y lo armamos juntos.
-          </p>
+          <div>
+            <h3 className="font-display text-[28px] leading-[1.1] font-extrabold text-sheet">
+              ¿No está lo que buscás?
+            </h3>
+            <p className="mt-3 text-[15px] leading-relaxed text-cream/85">
+              Un cumpleaños, una mesa dulce, algo para el mate… Contame qué tenés
+              ganas de comer y lo armamos juntos.
+            </p>
+          </div>
           <a
             href={WA_SPECIAL}
             className="btn-pop mt-6 inline-flex min-h-12 items-center self-start rounded-full bg-manteca px-6 text-[15px] font-bold text-forest [--btn-shadow:var(--color-sheet)]"

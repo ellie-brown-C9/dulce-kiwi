@@ -52,9 +52,9 @@ export default function Contact() {
           <div className="min-w-0 flex-[1_1_400px]">
             <p className="eyebrow text-manteca">¿Se te antojó algo?</p>
             <h2 className="mt-3 font-display text-[clamp(40px,4.6vw,62px)] leading-none font-black tracking-[-0.02em] text-sheet max-[359px]:text-[34px]">
-              Escribime, te leo con el{" "}
+              Escribime y{" "}
               <em className="relative font-extrabold whitespace-nowrap text-manteca">
-                mate en la mano.
+                te lo horneo.
                 <svg
                   aria-hidden="true"
                   viewBox="0 0 300 16"
@@ -73,7 +73,7 @@ export default function Contact() {
             </h2>
             <p className="mt-8 max-w-[420px] text-[17px] leading-[1.7] text-cream/80">
               Contame qué tenés ganas de comer y para cuándo. Te contesto yo, casi
-              siempre en el día.
+              siempre en el día.
             </p>
           </div>
 
