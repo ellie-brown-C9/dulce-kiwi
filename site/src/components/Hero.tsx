@@ -84,7 +84,7 @@ export default function Hero() {
             href="#horno"
             className="font-bold text-forest underline decoration-manteca decoration-[3px] underline-offset-[7px]"
           >
-            Ver lo que horneo ↓
+            Mirá lo que hago ↓
           </a>
         </div>
       </div>
