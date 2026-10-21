@@ -4,6 +4,8 @@ Date: 2026-10-21
 Branch: `homepage`
 Builds on round 4 (`2026-10-11-round-4-design.md`).
 
+**Status (2026-10-21): saved, not built, not launched.** Ellie approved the photo, header and hero from `final-preview-d3.html`, then asked to park it and come back later. What sits under the photo (§4) is a **stand-in**: she isn't sure about it, and it gets its own round together with the post-Mother's Day tidy-up.
+
 ## Why
 
 The big, well-known bakery sites open on a large photo of the bakery (Levain, Lune, Mah-Ze-Dahr, The Model Bakery): you land and feel dropped into the kitchen. Ellie now has a candid kitchen shot and wants that feel. The photo isn't a styled product shot; it's a warm, low-light table mid-bake. It has to sit naturally with the site's graphic, funky look and never look like it came from another website. The photo is a background *for* the headline. It's not a random decorative image, and nothing should compete with it.
@@ -27,7 +29,7 @@ Ellie picked each piece below from mockups in the brainstorm companion (`.superp
 
 ## 1. The photo
 
-- **Source:** `C:\Users\elise\Downloads\2026-10-17_16-59-09_IMG_1177 (1).HEIC` (3024×4032, portrait, needs EXIF rotation). Convert to webp in `public/home/` like the other home photos, for example `kitchen-table.webp`. Builder decides the export sizes and quality; keep the files light.
+- **Source:** `instagram/shoot-oct17/raw/2026-10-17_16-59-09_IMG_1177.HEIC` (also in Downloads) (3024×4032, portrait, needs EXIF rotation). Convert to webp in `public/home/` like the other home photos, for example `kitchen-table.webp`. Builder decides the export sizes and quality; keep the files light.
 - **Phones:** the full portrait shot, positioned at about `center 30%`.
 - **Desktop:** the photo fills the width, cropped to a horizontal strip. The mockups used the band from 12% down the photo, 0.6× the width tall: the wooden boards on top, then the scones, alfajores and glaze drips. Whether that's a separate cropped export or `object-position` on the one image is the builder's call; the scones and alfajores must stay in view at common desktop sizes.
 - **Height:** about one screen tall on phones and desktop (the mockups were viewport height). Builder settles exact min and max heights so the headline never collides with the header on short screens.
