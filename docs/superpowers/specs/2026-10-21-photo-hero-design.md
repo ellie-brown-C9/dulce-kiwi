@@ -8,7 +8,7 @@ Builds on round 4 (`2026-10-11-round-4-design.md`).
 
 The big, well-known bakery sites open on a large photo of the bakery (Levain, Lune, Mah-Ze-Dahr, The Model Bakery): you land and feel dropped into the kitchen. Ellie now has a candid kitchen shot and wants that feel. The photo isn't a styled product shot; it's a warm, low-light table mid-bake. It has to sit naturally with the site's graphic, funky look and never look like it came from another website. The photo is a background *for* the headline. It's not a random decorative image, and nothing should compete with it.
 
-Ellie picked each piece below from mockups in the brainstorm companion (`.superpowers/brainstorm/262-1792612555/content/`, local only): `header-outlines-v2.html` (A1), `header-mobile.html` (M1), `hero-h2-v2.html`, `photo-edge-v2.html` (E1) and `open-questions.html` (1A). Copy doesn't change anywhere unless stated.
+Ellie picked each piece below from mockups in the brainstorm companion (`.superpowers/brainstorm/262-1792612555/content/`, local only): `header-outlines-v2.html` (A1), `header-mobile.html` (M1), `hero-h2-v2.html`, `photo-edge-v2.html` (E1) and `open-questions.html` (1A), `darken.html` (D3) and `final-preview.html` (everything together, before D3). Copy doesn't change anywhere unless stated.
 
 ### Goals
 - The first screen is the kitchen photo, edge to edge, with the header and headline laid over it.
@@ -31,7 +31,7 @@ Ellie picked each piece below from mockups in the brainstorm companion (`.superp
 - **Phones:** the full portrait shot, positioned at about `center 30%`.
 - **Desktop:** the photo fills the width, cropped to a horizontal strip. The mockups used the band from 12% down the photo, 0.6× the width tall: the wooden boards on top, then the scones, alfajores and glaze drips. Whether that's a separate cropped export or `object-position` on the one image is the builder's call; the scones and alfajores must stay in view at common desktop sizes.
 - **Height:** about one screen tall on phones and desktop (the mockups were viewport height). Builder settles exact min and max heights so the headline never collides with the header on short screens.
-- **Top darkening (my call):** a soft gradient from about `rgba(20,16,10,.38)` at the top to transparent at about 32% down, so the header reads without the photo looking dimmed.
+- **Darkening (Ellie and Martin picked D3 in `darken.html`):** a strong, even dim over the whole photo, `rgba(20,14,8,.42)`, so the header and headline stand out clearly. Keep the soft extra gradient at the top as well (about `rgba(20,16,10,.38)` fading to transparent at 32% down). The rounded corners must clip the dim too.
 - **Bottom edge (E1):** big rounded bottom corners (56px desktop, about 36px phone) and a solid manteca drop underneath (`0 10px 0` desktop, `0 7px 0` phone), so the whole photo sits on the page like a giant sticker, matching the headline stickers and buttons. The top corners are square, flush with the top of the screen.
 - Use `next/image` with `priority` (it's the LCP image) and a real Spanish alt text describing the table, in the style of the current hero alt.
 
