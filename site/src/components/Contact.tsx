@@ -54,7 +54,7 @@ export default function Contact() {
             <h2 className="mt-3 font-display text-[clamp(40px,4.6vw,62px)] leading-none font-black tracking-[-0.02em] text-sheet max-[359px]:text-[34px]">
               Escribime y{" "}
               <em className="relative font-extrabold whitespace-nowrap text-manteca">
-                te lo hago.
+                te lo preparo.
                 <svg
                   aria-hidden="true"
                   viewBox="0 0 300 16"
