@@ -19,16 +19,19 @@ export default function Home() {
   return (
     <>
       {promo && <PromoStrip promo={promo} />}
-      <Header />
-      <main>
-        <Hero />
-        {promo && <Special promo={promo} />}
-        <Ticker />
-        <MenuTeaser />
-        <Story />
-        <HowToOrder />
-        <Contact />
-      </main>
+      {/* The header is laid over the top of the photo hero (it scrolls away with it) */}
+      <div className="relative">
+        <Header />
+        <main>
+          <Hero />
+          {promo && <Special promo={promo} />}
+          <Ticker />
+          <MenuTeaser />
+          <Story />
+          <HowToOrder />
+          <Contact />
+        </main>
+      </div>
       <FloatingWhatsApp />
     </>
   );

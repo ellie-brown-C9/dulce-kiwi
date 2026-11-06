@@ -70,6 +70,43 @@ body {
     color: color-mix(in srgb, var(--color-forest) 80%, transparent);
   }
 
+  /* Cream letters with a thick forest outline traced around them (photo hero + header).
+     The stroke is painted under the fill, so it grows outwards and never thins the letters.
+     Set the width with --outline. */
+  .text-outline {
+    color: var(--color-sheet);
+    -webkit-text-stroke: var(--outline, 6px) var(--color-forest);
+    paint-order: stroke fill;
+  }
+
+  /* Header links: dead straight at rest; grow with a very slight lean on hover/focus */
+  .nav-pop {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    transition: transform 0.35s cubic-bezier(0.3, 1.4, 0.5, 1);
+  }
+  .nav-pop:hover,
+  .nav-pop:focus-visible {
+    transform: scale(1.16) rotate(-1.2deg);
+  }
+  .nav-pop:focus-visible {
+    outline: 3px solid var(--color-manteca);
+    outline-offset: 4px;
+    border-radius: 8px;
+  }
+
+  /* Logo on the photo: a 2px forest outline traced around the cream wordmark, plus a manteca drop */
+  .logo-outline {
+    filter: drop-shadow(2px 0 0 var(--color-forest)) drop-shadow(-2px 0 0 var(--color-forest))
+      drop-shadow(0 2px 0 var(--color-forest)) drop-shadow(0 -2px 0 var(--color-forest))
+      drop-shadow(3px 4px 0 var(--color-manteca));
+  }
+  /* Logo on cream (/menu): just the manteca drop */
+  .logo-drop {
+    filter: drop-shadow(3px 4px 0 var(--color-manteca));
+  }
+
   /* Photo shapes */
   .shape-blob {
     border-radius: 46% 54% 48% 52% / 52% 46% 54% 48%;

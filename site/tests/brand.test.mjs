@@ -45,6 +45,23 @@ test("header: logo far left, links centred, Pedir on the right", () => {
   assert.doesNotMatch(header, /col-span-3|border-y-2|✺/); // no phone ruled row, no stars
 });
 
+test("header links work from every page", () => {
+  assert.match(header, /href="\/menu"/);
+  assert.match(header, /href="\/#historia"/);
+  assert.match(header, /href="\/#pedidos"/);
+  assert.match(header, /href="\/"/);
+  assert.doesNotMatch(header, /href="#/);
+  assert.match(header, /WA_HELLO/);
+});
+
+test("header comes as the outlined photo version and a plain one for cream pages", () => {
+  assert.match(header, /variant\?: "photo" \| "plain"/);
+  assert.match(header, /wordmark-stacked-cream\.png/);
+  assert.match(header, /wordmark-stacked-green\.png/);
+  assert.match(header, /text-outline/);
+  assert.match(read("../src/app/menu/page.tsx"), /<Header variant="plain" \/>/);
+});
+
 test("story photos are wobbly blobs with white borders, no colour blocks", () => {
   assert.match(story, /shape-blob/);
   assert.match(story, /border-white/);
@@ -76,19 +93,35 @@ test("buttons speak as Ellie (first person), never about Ellie", () => {
 
 const hero = read("../src/components/Hero.tsx");
 
-test("hero photo is the wobbly blob, not an arch", () => {
-  assert.match(hero, /shape-blob/);
-  assert.doesNotMatch(hero, /shape-arch/);
+test("hero is the full-bleed kitchen photo, loaded first, with phone and desktop crops", () => {
+  assert.match(hero, /\/home\/kitchen-wide\.webp/);
+  assert.match(hero, /\/home\/kitchen-tall\.webp/);
+  assert.match(hero, /fetchPriority: "high"|priority|preload/);
+  assert.doesNotMatch(hero, /shape-blob|shape-arch|bake-crepe/);
 });
 
-test("hero main button is marked for the floating pill", () => {
-  assert.match(hero, /data-hero-cta/);
+test("nothing competes with the photo: no buttons or links on it", () => {
+  assert.doesNotMatch(hero, /<a[\s>]|<Link|<button|data-hero-cta/);
+  assert.doesNotMatch(hero, /Pedime algo rico|Mirá lo que hago|Siempre casero/);
 });
 
-test("phone hero: headline sits on a cream sticker over the photo", () => {
-  assert.match(hero, /-mt-\[70px\]/);
-  assert.match(hero, /bg-sheet/);
-  assert.match(hero, /md:bg-transparent/);
+test("hero headline ends on a manteca 'antes.' in the outlined style", () => {
+  const h1 = hero.slice(hero.indexOf("<h1"), hero.indexOf("</h1>"));
+  assert.match(h1, /antes\./);
+  assert.match(h1, /text-manteca/);
+  assert.match(h1, /text-outline/);
+});
+
+test("photo dim, rounded bottom and manteca drop come from the approved look", () => {
+  assert.match(hero, /rgba\(20,14,8,\.42\)|rgba\(20,\s*14,\s*8,\s*0?\.42\)/);
+  assert.match(hero, /rounded-b-\[36px\]/);
+  assert.match(hero, /md:rounded-b-\[56px\]/);
+  assert.match(hero, /0_7px_0_var\(--color-manteca\)/);
+  assert.match(hero, /md:shadow-\[0_10px_0_var\(--color-manteca\)\]/);
+});
+
+test("outlined letters keep their fill: the stroke is painted under it", () => {
+  assert.match(css, /\.text-outline\s*\{[^}]*-webkit-text-stroke[^}]*paint-order:\s*stroke fill/);
 });
 
 const special = read("../src/components/Special.tsx");
@@ -159,11 +192,14 @@ test("Cómo pedir is a left-aligned numbered path on phones, centred columns on 
   assert.doesNotMatch(how, /className="bg-manteca px-6 py-24 text-center"/);
 });
 
-test("floating pill steps aside at the hero button and the contact section", () => {
+test("floating pill shows from the start and steps aside at contact and for the order bar", () => {
   const pill = read("../src/components/FloatingWhatsApp.tsx");
-  assert.match(pill, /\[data-hero-cta\]/);
+  assert.doesNotMatch(pill, /data-hero-cta/);
   assert.match(pill, /contacto/);
+  assert.match(pill, /"dk:order"/);
   assert.match(pill, /data-floating-wa/);
+  assert.match(pill, /useState\(false\)/); // visible at first
+  assert.doesNotMatch(pill, /z-50/); // never above the order bar (z-40)
 });
 
 test("menu page sends orders through whatsappLink and never previews the message", () => {

@@ -21,7 +21,7 @@ export default async function MenuPage({ searchParams }: { searchParams: Promise
 
   return (
     <>
-      <Header />
+      <Header variant="plain" />
       <MenuClient initial={initial} />
       <FloatingWhatsApp />
     </>

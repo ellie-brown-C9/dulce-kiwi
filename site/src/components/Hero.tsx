@@ -1,91 +1,69 @@
-import Image from "next/image";
+import { getImageProps } from "next/image";
 import { Fragment } from "react";
-import { ChatIcon } from "./icons";
-import { WA_HELLO } from "./data";
 
 // Headline words pop in one after another
 const WORDS = ["Repostería", "casera,", "como", "la", "de"];
 const STAGGER_MS = 80;
 
+const ALT =
+  "La mesa de la cocina en plena horneada: scones, afghans de chocolate con nuez, un rogel con merengue tostado y un budín glaseado sobre tablas de madera";
+
+// Desktop: the wide strip (boards on top, then scones, alfajores and glaze). Phones: the full portrait shot.
+const DESKTOP_MEDIA = "(min-width: 768px)";
+const common = { alt: ALT, sizes: "100vw", fetchPriority: "high", loading: "eager" } as const;
+const {
+  props: { srcSet: wideSrcSet },
+} = getImageProps({ ...common, src: "/home/kitchen-wide.webp", width: 2400, height: 1440 });
+const {
+  props: { srcSet: tallSrcSet, ...tallImg },
+} = getImageProps({ ...common, src: "/home/kitchen-tall.webp", width: 1200, height: 1600 });
+
 /**
- * Phones: the wobbly photo comes first and the headline sits on a cream sticker that
- * overlaps its bottom edge, then the buttons, then the intro.
- * Desktop: headline, intro and buttons on the left, photo on the right.
+ * The kitchen photo, edge to edge and about one screen tall, with the header (laid over it
+ * from page.tsx) and the headline on it. Darkened evenly so the outlined letters stand out;
+ * rounded bottom corners with a manteca drop, like a giant sticker. No buttons on the photo.
  */
 export default function Hero() {
   return (
     <section
       id="inicio"
-      className="mx-auto grid max-w-[1280px] items-center px-6 pt-4 pb-20 md:grid-cols-[1.1fr_1fr] md:gap-x-16 md:pt-6"
+      className="relative isolate mb-[34px] h-[100svh] max-h-[900px] min-h-[560px] overflow-hidden rounded-b-[36px] bg-forest shadow-[0_7px_0_var(--color-manteca)] md:mb-11 md:h-[clamp(560px,100svh,62.5vw)] md:max-h-none md:rounded-b-[56px] md:shadow-[0_10px_0_var(--color-manteca)]"
     >
-      <figure className="relative m-0 mx-auto w-full max-w-[300px] min-w-0 md:col-start-2 md:row-span-2 md:row-start-1 md:max-w-[520px]">
-        <div className="shape-blob relative aspect-square w-full rotate-3 overflow-hidden border-[7px] border-sheet shadow-[0_12px_30px_rgba(52,80,63,0.18)] md:border-8">
-          <Image
-            src="/home/bake-crepe.webp"
-            alt="Rogel casero, capa por capa, con dulce de leche y merengue tostado, sobre una mesa de madera enharinada"
-            fill
-            priority
-            sizes="(min-width: 1280px) 520px, (min-width: 768px) 42vw, 300px"
-            className="object-cover object-[center_55%]"
-          />
-        </div>
-        <Image
-          src="/brand/badge-kiwi.png"
-          alt=""
-          width={1200}
-          height={1200}
-          className="absolute bottom-[2%] -left-[6%] hidden w-[26%] max-w-[150px] animate-bob [--tilt:-10deg] md:block"
+      <picture>
+        <source media={DESKTOP_MEDIA} srcSet={wideSrcSet} sizes="100vw" />
+        <img
+          {...tallImg}
+          srcSet={tallSrcSet}
+          alt={ALT}
+          className="absolute inset-0 h-full w-full object-cover object-[center_30%] md:object-[center_40%]"
         />
-        <p className="absolute -top-2 -right-3 flex aspect-square w-[92px] rotate-[8deg] items-center justify-center rounded-full bg-manteca p-2.5 text-center font-display text-[13px] leading-tight font-bold text-forest italic md:-top-[2%] md:-right-[4%] md:w-[27%] md:max-w-[150px] md:p-3 md:text-[clamp(13px,1.6vw,18px)]">
-          Siempre casero. Nunca apurado.
-        </p>
-      </figure>
+      </picture>
 
-      {/* Phones: a cream sticker overlapping the photo. Desktop: plain text in the left column. */}
-      <div className="relative z-10 -mt-[70px] -rotate-2 rounded-[30px] bg-sheet px-5 pt-[18px] pb-5 shadow-[0_6px_0_var(--color-manteca)] md:col-start-1 md:row-start-1 md:mt-0 md:rotate-0 md:self-end md:rounded-none md:bg-transparent md:p-0 md:shadow-none">
-        <p className="eyebrow">Hecho a mano en Acassuso</p>
-        <h1 className="mt-2.5 font-display text-[36px] leading-[0.96] font-black tracking-[-0.02em] text-forest md:mt-4 md:text-[clamp(46px,6vw,84px)]">
-          {WORDS.map((w, i) => (
-            <Fragment key={w}>
-              <span
-                className="inline-block animate-pop"
-                style={{ animationDelay: `${i * STAGGER_MS}ms` }}
-              >
-                {w}
-              </span>{" "}
-            </Fragment>
-          ))}
-          <em
-            className="inline-block animate-pop font-extrabold text-terracotta"
-            style={{ animationDelay: `${WORDS.length * STAGGER_MS}ms` }}
-          >
-            antes.
-          </em>
-        </h1>
-      </div>
+      {/* Even dim (D3) plus a soft extra shade at the top for the header */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[rgba(20,14,8,.42)]" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(20,16,10,.38),rgba(20,16,10,0)_32%)]"
+      />
 
-      {/* Phones show the buttons before the intro; desktop the intro first */}
-      <div className="flex min-w-0 flex-col items-start md:col-start-1 md:row-start-2 md:self-start">
-        <p className="order-2 mt-6 max-w-[460px] text-base leading-[1.6] text-ink-soft md:order-1 md:text-lg md:leading-[1.65]">
-          Soy Ellie. De chica vendía lo que horneaba en la puerta de casa, en
-          una granja de Nueva Zelanda. Fui pastelera en cafés, crucé el mundo,
-          y extrañaba lo más lindo de hornear: compartirlo con gente nueva.
-        </p>
-        <div className="order-1 mt-6 flex flex-wrap items-center gap-x-7 gap-y-4 md:order-2 md:mt-9">
-          <a
-            href={WA_HELLO}
-            data-hero-cta=""
-            className="btn-pop inline-flex min-h-[54px] items-center gap-2.5 rounded-full bg-forest px-7 font-bold text-cream hover:bg-forest-dark"
-          >
-            <ChatIcon filled />
-            Pedime algo rico
-          </a>
-          <a
-            href="/menu"
-            className="font-bold text-forest underline decoration-manteca decoration-[3px] underline-offset-[7px]"
-          >
-            Mirá lo que hago ↓
-          </a>
+      <div className="absolute inset-x-0 bottom-0 mx-auto max-w-[1440px] px-4 pb-[84px] md:px-[34px] md:pb-[70px]">
+        <div className="max-w-[620px]">
+          <p className="eyebrow text-sheet [text-shadow:0_1px_6px_rgba(0,0,0,.6)]">Hecho a mano en Acassuso</p>
+          <h1 className="text-outline mt-2 font-display text-[clamp(36px,11.3vw,44px)] leading-[0.92] font-black tracking-[-0.02em] [--outline:7px] md:text-[clamp(52px,5vw,66px)] md:[--outline:9px]">
+            {WORDS.map((w, i) => (
+              <Fragment key={w}>
+                <span className="inline-block animate-pop" style={{ animationDelay: `${i * STAGGER_MS}ms` }}>
+                  {w}
+                </span>{" "}
+              </Fragment>
+            ))}
+            <em
+              className="inline-block animate-pop text-manteca"
+              style={{ animationDelay: `${WORDS.length * STAGGER_MS}ms` }}
+            >
+              antes.
+            </em>
+          </h1>
         </div>
       </div>
     </section>
