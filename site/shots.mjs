@@ -128,7 +128,7 @@ if (MOBILE) {
 // Screenshots: top of page, each section, full page
 await new Promise((r) => setTimeout(r, 1200)); // let the hero pop-in finish
 await page.screenshot({ path: `${OUT}/00-top.png` });
-for (const id of ["inicio", "especial", "horno", "historia", "pedidos", "contacto"]) {
+for (const id of ["inicio", "especial", "menu", "historia", "pedidos", "contacto"]) {
   const found = await page.evaluate((id) => {
     const el = document.getElementById(id);
     el?.scrollIntoView({ behavior: "instant", block: "start" });

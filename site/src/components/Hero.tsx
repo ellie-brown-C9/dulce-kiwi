@@ -81,7 +81,7 @@ export default function Hero() {
             Pedime algo rico
           </a>
           <a
-            href="#horno"
+            href="/menu"
             className="font-bold text-forest underline decoration-manteca decoration-[3px] underline-offset-[7px]"
           >
             Mirá lo que hago ↓

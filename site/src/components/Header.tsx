@@ -24,8 +24,8 @@ export default function Header() {
         </a>
 
         <div className="flex gap-3 max-[359px]:gap-2 md:gap-8 md:justify-self-center">
-          <a href="#horno" className={LINK}>
-            Mi horno
+          <a href="/menu" className={LINK}>
+            Menú
           </a>
           <a href="#historia" className={LINK}>
             Mi historia

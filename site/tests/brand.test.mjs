@@ -70,7 +70,8 @@ test("contacts are solid stickers, not cream labels with an overlapping disc", (
 
 test("buttons speak as Ellie (first person), never about Ellie", () => {
   assert.doesNotMatch(components, /Pedíselo a Ellie|Escribile a Ellie/);
-  assert.match(read("../src/components/Bakes.tsx"), /Pedímelo/);
+  assert.match(read("../src/components/MenuTeaser.tsx"), /Ver qué te sugiero/);
+  assert.match(read("../src/components/data.ts"), /Me gustaría hacerte un pedido|HELLO_MESSAGE/);
 });
 
 const hero = read("../src/components/Hero.tsx");
@@ -144,10 +145,11 @@ test("pantry rebuilds for a new size and stays still with reduced motion", () =>
   assert.match(pantry, /prefers-reduced-motion: reduce/);
 });
 
-test("phone bakes rail shows only a thin sliver of the next card", () => {
-  const bakes = read("../src/components/Bakes.tsx");
-  assert.match(bakes, /basis-\[calc\(100vw-var\(--gutter\)-40px\)\]/);
-  assert.match(bakes, /gap-4 sm:gap-8/);
+test("homepage teaser hands its answers to /menu", () => {
+  const teaser = read("../src/components/MenuTeaser.tsx");
+  assert.match(teaser, /\/menu\?ocasion=/);
+  assert.match(teaser, /\/menu#todo/);
+  assert.match(teaser, /^"use client"/);
 });
 
 test("Cómo pedir is a left-aligned numbered path on phones, centred columns on desktop", () => {

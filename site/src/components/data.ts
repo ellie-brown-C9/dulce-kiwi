@@ -1,3 +1,5 @@
+import { HELLO_MESSAGE } from "./menu/logic.ts";
+
 export const CONTACT = {
   whatsapp: "5491122411701",
   whatsappLabel: "+54 9 11 2241-1701",
@@ -8,9 +10,7 @@ export const CONTACT = {
 export const whatsappLink = (text: string) =>
   `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(text)}`;
 
-export const WA_HELLO = whatsappLink(
-  "¡Hola Ellie! Vi tu página y quería encargarte algo.",
-);
+export const WA_HELLO = whatsappLink(HELLO_MESSAGE);
 export const WA_SPECIAL = whatsappLink(
   "¡Hola Ellie! Quería consultarte por un pedido especial.",
 );
@@ -78,49 +78,3 @@ export const formatPromoEnd = (endDate: string) =>
     month: "long",
     timeZone: "UTC",
   }).format(new Date(`${endDate}T12:00:00Z`));
-
-export type Bake = {
-  name: string;
-  detail: string;
-  note: string;
-  img: string;
-  alt: string;
-};
-
-export const BAKES: Bake[] = [
-  {
-    name: "Budín de zanahoria o banana",
-    detail: "Húmedo, especiado, con nueces tostadas arriba.",
-    note: "un clásico de casa",
-    img: "/home/bake-carrot.webp",
-    alt: "Dos budines de zanahoria con glaseado y nueces picadas sobre una tabla de madera",
-  },
-  {
-    name: "Tarteletas de ruibarbo y frutilla",
-    detail: "Masa casera, ruibarbo asado y frutillas de estación.",
-    note: "un poquito de Nueva Zelanda",
-    img: "/home/bake-rhubarb.webp",
-    alt: "Bandeja de tarteletas de ruibarbo con frutillas frescas",
-  },
-  {
-    name: "Scones de dátiles",
-    detail: "Para abrir tibios, con manteca, y compartir con el mate.",
-    note: "la hora del mate",
-    img: "/home/bake-scones.webp",
-    alt: "Scones de dátiles recién horneados sobre papel manteca",
-  },
-  {
-    name: "Tarta de lima",
-    detail: "Fresca y ácida lo justo, sobre una base crocante.",
-    note: "algo fresco",
-    img: "/home/bake-lime.webp",
-    alt: "Tarta de lima con rodajas de lima sobre una mesa rústica",
-  },
-  {
-    name: "Rogel",
-    detail: "Capa por capa, con dulce de leche y merengue tostado.",
-    note: "el plato estrella",
-    img: "/home/bake-crepe.webp",
-    alt: "Rogel casero, capa por capa, con dulce de leche y merengue tostado",
-  },
-];

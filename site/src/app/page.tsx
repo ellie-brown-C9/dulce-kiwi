@@ -3,7 +3,7 @@ import PromoStrip from "@/components/PromoStrip";
 import Hero from "@/components/Hero";
 import Special from "@/components/Special";
 import Ticker from "@/components/Ticker";
-import Bakes from "@/components/Bakes";
+import MenuTeaser from "@/components/MenuTeaser";
 import Story from "@/components/Story";
 import HowToOrder from "@/components/HowToOrder";
 import Contact from "@/components/Contact";
@@ -24,7 +24,7 @@ export default function Home() {
         <Hero />
         {promo && <Special promo={promo} />}
         <Ticker />
-        <Bakes />
+        <MenuTeaser />
         <Story />
         <HowToOrder />
         <Contact />
