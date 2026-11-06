@@ -37,9 +37,10 @@ export default function OrderBar({ lines, message, open, onOpenChange, onQty, ba
     <>
       {/* Announced politely as the order changes; kept outside the bar so it is heard even as the bar slides in */}
       <p aria-live="polite" className="sr-only">
-        {show ? `Tu pedido: ${count} ${count === 1 ? "cosa" : "cosas"}, ${formatPrice(total)}` : ""}
+        {show ? `Tu pedido: ${count} ${count === 1 ? "cosa" : "cosas"}, ${formatPrice(total)}` : "Tu pedido está vacío"}
       </p>
       <div
+        data-order-bar
         className={`fixed inset-x-0 bottom-0 z-40 transition-[translate,visibility] duration-300 ease-[cubic-bezier(.2,.8,.2,1)] ${
           show ? "visible translate-y-0" : "pointer-events-none invisible translate-y-[110%]"
         }`}

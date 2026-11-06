@@ -83,7 +83,7 @@ export const ITEMS: MenuItem[] = [
   },
   {
     id: "rogel", group: "tortas", kind: "rogel", name: "Rogel de 14 capas",
-    desc: "Catorce capas finitas con dulce de leche y merengue. Para 12 a 15 porciones grandes.",
+    desc: "Catorce capas finitas con dulce de leche y merengue.",
     photo: "/menu/rogel.webp", photoAlt: "Rogel de 14 capas con dulce de leche y merengue",
     sizes: [{ label: "Entero", serves: 15, price: 60000 }],
   },

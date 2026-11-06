@@ -105,8 +105,8 @@ export default function MenuCard({
           }`}
         >
           <h3
-            className={`font-display font-black leading-[0.95] tracking-[-0.01em] text-forest ${
-              big ? "text-[46px]" : "text-[25px] sm:text-[40px]"
+            className={`max-w-full break-words hyphens-auto font-display font-black leading-[0.95] tracking-[-0.01em] text-forest ${
+              big ? "text-[34px] min-[390px]:text-[46px]" : "text-[20px] min-[390px]:text-[25px] sm:text-[40px]"
             }`}
           >
             {item.name}

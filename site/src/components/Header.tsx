@@ -25,7 +25,7 @@ export default function Header({ variant = "photo" }: Props) {
         aria-label="Principal"
         className="mx-auto flex max-w-[1440px] flex-col items-center gap-1 px-3 pt-3.5 whitespace-nowrap md:grid md:grid-cols-[1fr_auto_1fr] md:gap-5 md:px-[26px] md:py-4"
       >
-        <Link href="/" className="flex-none transition-transform duration-300 hover:scale-[1.06] md:justify-self-start">
+        <Link href="/" className="flex-none rounded-lg focus-visible:outline-[3px] focus-visible:outline-offset-4 focus-visible:outline-manteca transition-transform duration-300 hover:scale-[1.06] md:justify-self-start">
           <Image
             src={photo ? "/brand/wordmark-stacked-cream.png" : "/brand/wordmark-stacked-green.png"}
             alt="Dulce Kiwi"
@@ -50,7 +50,7 @@ export default function Header({ variant = "photo" }: Props) {
 
         <a
           href={WA_HELLO}
-          className="hidden min-h-11 items-center gap-2 rounded-full border-[3px] border-forest bg-terracotta px-5 text-[15px] font-bold text-sheet shadow-[3px_3px_0_var(--color-forest)] transition-transform duration-300 hover:scale-[1.08] md:inline-flex md:justify-self-end"
+          className="focus-visible:outline-[3px] focus-visible:outline-offset-4 focus-visible:outline-manteca hidden min-h-11 items-center gap-2 rounded-full border-[3px] border-forest bg-terracotta px-5 text-[15px] font-bold text-sheet shadow-[3px_3px_0_var(--color-forest)] transition-transform duration-300 hover:scale-[1.08] md:inline-flex md:justify-self-end"
         >
           <ChatIcon size={18} />
           Pedir

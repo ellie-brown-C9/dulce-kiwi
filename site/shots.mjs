@@ -140,7 +140,7 @@ if (MOBILE && !HOME) {
   const clash = await page.evaluate(() => {
     const pill = document.querySelector("[data-floating-wa]");
     const visible = Number(getComputedStyle(pill).opacity) > 0.01;
-    const bar = [...document.querySelectorAll("div.fixed")].find((d) => d.className.includes("z-40"));
+    const bar = document.querySelector("[data-order-bar]");
     const p = pill.getBoundingClientRect();
     const b = bar?.getBoundingClientRect();
     const overlap = b && p.bottom > b.top && p.top < b.bottom && p.right > b.left && p.left < b.right;
