@@ -93,7 +93,7 @@ function SuggestionCard({ item, people, href }: { item: MenuItem; people: number
         {item.name}
       </h3>
       <div className="mx-1.5 mt-auto flex flex-wrap items-center justify-between gap-1.5">
-        <span className="inline-block rounded-full bg-manteca px-[11px] py-[3px] text-[12px] font-bold whitespace-nowrap max-[389px]:px-2 max-[389px]:text-[11px]">
+        <span className="inline-block rounded-full bg-manteca px-[11px] py-[3px] text-[12px] font-bold whitespace-nowrap max-[389px]:max-w-full max-[389px]:rounded-[12px] max-[389px]:px-2 max-[389px]:text-[11px] max-[389px]:leading-[1.25] max-[389px]:whitespace-normal">
           {quantityLabel(item, plan.size, plan.qty)}
         </span>
         <span className="font-display font-extrabold">{formatPrice(plan.total)}</span>
