@@ -84,6 +84,12 @@ test("query params from the homepage teaser, with fallbacks", () => {
   assert.deepEqual(parseMatchQuery({}), { occasion: "merienda", people: 6, chosen: false });
 });
 
+test("every homepage people chip (4, 8, 15, 20) is a size the menu page accepts", () => {
+  for (const n of [4, 8, 15, 20]) {
+    assert.equal(parseMatchQuery({ ocasion: "merienda", personas: String(n) }).chosen, true);
+  }
+});
+
 test("servings notes are marked approximate (aprox.)", () => {
   const by = (id) => ITEMS.find((i) => i.id === id);
   const banana = by("banana");

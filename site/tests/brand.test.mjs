@@ -87,7 +87,7 @@ test("contacts are solid stickers, not cream labels with an overlapping disc", (
 
 test("buttons speak as Ellie (first person), never about Ellie", () => {
   assert.doesNotMatch(components, /Pedíselo a Ellie|Escribile a Ellie/);
-  assert.match(read("../src/components/MenuTeaser.tsx"), /Ver qué te sugiero/);
+  assert.match(read("../src/components/MenuTeaser.tsx"), /Ver más recomendaciones y el menú completo →/);
   assert.match(read("../src/components/data.ts"), /Me gustaría hacerte un pedido|HELLO_MESSAGE/);
 });
 
@@ -178,11 +178,22 @@ test("pantry rebuilds for a new size and stays still with reduced motion", () =>
   assert.match(pantry, /prefers-reduced-motion: reduce/);
 });
 
-test("homepage teaser hands its answers to /menu", () => {
+test("homepage teaser (version B) asks with chips and hands its answers to /menu", () => {
   const teaser = read("../src/components/MenuTeaser.tsx");
-  assert.match(teaser, /\/menu\?ocasion=/);
-  assert.match(teaser, /\/menu#todo/);
   assert.match(teaser, /^"use client"/);
+  assert.match(teaser, /¿Qué estás <em[^>]*>armando\?<\/em>/);
+  assert.match(teaser, /Ver más recomendaciones y el menú completo →/);
+  assert.match(teaser, /href=\{href\}/);
+  assert.match(teaser, /const href = `\/menu\?ocasion=\$\{occasion\}&personas=\$\{people\}`/);
+  // four people chips, each a size the menu page understands
+  for (const [label, n] of [["2 a 4", 4], ["5 a 8", 8], ["9 a 15", 15], ["16 o más", 20]]) {
+    assert.ok(teaser.includes(`{ value: ${n}, label: "${label}" }`), `people chip ${label} → ${n}`);
+  }
+  assert.match(teaser, /aria-pressed=\{on\}/);
+  assert.match(teaser, /min-h-11/);
+  assert.match(teaser, /suggest\(occasion, people\)\.slice\(0, 2\)/);
+  // the old sentence, cutouts and secondary link are gone
+  assert.doesNotMatch(teaser, /Picker|o mirá todo el menú|teaser-.*\.webp|object-contain|drop-shadow/);
 });
 
 test("Cómo pedir is a left-aligned numbered path on phones, centred columns on desktop", () => {
