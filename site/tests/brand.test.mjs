@@ -163,3 +163,14 @@ test("floating pill steps aside at the hero button and the contact section", () 
   assert.match(pill, /contacto/);
   assert.match(pill, /data-floating-wa/);
 });
+
+test("menu page sends orders through whatsappLink and never previews the message", () => {
+  const client = read("../src/components/menu/MenuClient.tsx") + read("../src/components/menu/OrderBar.tsx");
+  assert.match(client, /orderMessage\(/);
+  assert.match(client, /whatsappLink\(/);
+  assert.doesNotMatch(client, /bubble|preview/i);
+});
+
+test("menu cards use full photos, never cutouts", () => {
+  assert.doesNotMatch(read("../src/components/menu/MenuCard.tsx"), /object-contain|drop-shadow/);
+});

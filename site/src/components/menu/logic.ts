@@ -115,3 +115,11 @@ export function parseMatchQuery(q: { ocasion?: string; personas?: string }): { o
   const ppl = q.personas !== undefined && PEOPLE.includes(n) ? n : null;
   return { occasion: occ ?? "merienda", people: ppl ?? 6, chosen: occ !== null && ppl !== null };
 }
+
+/** Small servings line under a card's price. Portions are always approximate. */
+export function servingsNote(item: MenuItem, size: Size): string | null {
+  if (item.unit === "docena") return "12 unidades";
+  if (item.kind === "minirogel") return null; // the size label already says how many
+  if (item.kind === "rogel") return "rinde 12 a 15 aprox.";
+  return `rinde ${size.serves} aprox.`;
+}

@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { ITEMS, GROUPS } from "../src/components/menu/items.ts";
 import {
   HELLO_MESSAGE, formatPrice, planFor, suggest, quantityLabel, lineKey, addOrToggle, changeQty,
-  orderTotal, lineText, orderMessage, parseMatchQuery,
+  orderTotal, lineText, orderMessage, parseMatchQuery, servingsNote,
 } from "../src/components/menu/logic.ts";
 
 test("prices are written the Argentine way", () => {
@@ -82,4 +82,15 @@ test("query params from the homepage teaser, with fallbacks", () => {
   assert.deepEqual(parseMatchQuery({ ocasion: "cumple", personas: "15" }), { occasion: "cumple", people: 15, chosen: true });
   assert.deepEqual(parseMatchQuery({ ocasion: "pizza", personas: "-3" }), { occasion: "merienda", people: 6, chosen: false });
   assert.deepEqual(parseMatchQuery({}), { occasion: "merienda", people: 6, chosen: false });
+});
+
+test("servings notes are marked approximate (aprox.)", () => {
+  const by = (id) => ITEMS.find((i) => i.id === id);
+  const banana = by("banana");
+  assert.equal(servingsNote(banana, banana.sizes[0]), "rinde 8 aprox.");
+  assert.equal(servingsNote(banana, banana.sizes[1]), "rinde 5 aprox.");
+  assert.equal(servingsNote(by("lemon-pie"), by("lemon-pie").sizes[0]), "rinde 10 aprox.");
+  assert.equal(servingsNote(by("rogel"), by("rogel").sizes[0]), "rinde 12 a 15 aprox.");
+  assert.equal(servingsNote(by("afghans"), by("afghans").sizes[0]), "12 unidades");
+  assert.equal(servingsNote(by("mini-rogel"), by("mini-rogel").sizes[0]), null);
 });
