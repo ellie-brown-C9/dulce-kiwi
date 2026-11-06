@@ -25,8 +25,8 @@ export default function Home() {
         <main>
           <Hero />
           {promo && <Special promo={promo} />}
-          <Ticker />
           <MenuTeaser />
+          <Ticker />
           <Story />
           <HowToOrder />
           <Contact />
