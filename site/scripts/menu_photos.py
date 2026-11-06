@@ -1,23 +1,19 @@
 """Menu and kitchen hero photos, one shared grade.
 
-Run from site/:  python -I scripts/menu_photos.py
+Run from site/:  python scripts/menu_photos.py
 Writes public/menu/<id>.webp (1200x1500, 4:5) and public/home/kitchen-{wide,tall}.webp.
+Every file must stay under MAX_BYTES; a photo that can't is exported smaller
+(see save()), and if even that fails the script stops with an error.
 
 Every photo keeps its real background; consistency comes from framing (bake centred,
 some air around it) and one gentle shared grade (warm, soft S-curve).
 """
 import os
-import site
-import sys
 
 import numpy as np
+import pillow_heif
 from PIL import Image, ImageOps
 
-try:
-    import pillow_heif
-except ImportError:  # `python -I` hides user site-packages, where pillow-heif lives
-    sys.path.append(site.getusersitepackages())
-    import pillow_heif
 pillow_heif.register_heif_opener()
 
 HOME = os.path.expanduser("~")
@@ -76,18 +72,26 @@ def grade(im):
     return Image.fromarray((np.clip(x, 0, 1) * 255 + 0.5).astype(np.uint8))
 
 
-MAX_BYTES = 340 * 1024  # keep every file under 350 KB
+MAX_BYTES = 340_000  # hard limit per file (brief: < 350 KB)
+MIN_QUALITY = 74  # don't go blockier than this to save bytes
+FALLBACK_SCALE = 0.9  # 1200x1500 -> 1080x1350 when quality alone can't fit
 
 
 def save(im, path, quality):
-    # Grainy shots (fine plaster texture) can run heavy at the target quality:
-    # step the quality down a little until the file fits.
-    while True:
-        im.save(path, "WEBP", quality=quality, method=6)
-        if os.path.getsize(path) <= MAX_BYTES or quality <= 70:
-            break
-        quality -= 2
-    print(f"{os.path.relpath(path, REPO)}  {im.size[0]}x{im.size[1]}  q{quality}  {os.path.getsize(path) // 1024} KB")
+    """Save as webp under MAX_BYTES. Grainy shots (plaster, board texture) can run
+    heavy: first step the quality down a little, then export 10% smaller; if it
+    still doesn't fit, raise rather than ship an over-limit file."""
+    attempts = [im, im.resize((round(im.width * FALLBACK_SCALE), round(im.height * FALLBACK_SCALE)), Image.LANCZOS)]
+    for img in attempts:
+        for q in range(quality, MIN_QUALITY - 1, -2):
+            img.save(path, "WEBP", quality=q, method=6)
+            size = os.path.getsize(path)
+            if size < MAX_BYTES:
+                note = "" if img is im else "  (fallback: smaller export)"
+                print(f"{os.path.relpath(path, REPO)}  {img.width}x{img.height}  q{q}  {size:,} B{note}")
+                return
+    os.remove(path)
+    raise SystemExit(f"{path}: still {size:,} B (> {MAX_BYTES:,}) after all fallbacks")
 
 
 def main():
