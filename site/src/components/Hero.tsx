@@ -8,15 +8,17 @@ const STAGGER_MS = 80;
 const ALT =
   "La mesa de la cocina en plena horneada: scones, afghans de chocolate con nuez, un rogel con merengue tostado y un budín glaseado sobre tablas de madera";
 
-// Desktop: the wide strip (boards on top, then scones, alfajores and glaze). Phones: the full portrait shot.
+// Ellie's own crops (docs/superpowers/notes/2026-11-06-hero-crop.json), natural colour.
+// Desktop: 1.6:1 strip (scones, the stacked rogel and the cake slice). Phones: 1:2, the right-hand side.
+// Each export has its editor frame's aspect, so object-cover + centre shows the chosen area.
 const DESKTOP_MEDIA = "(min-width: 768px)";
 const common = { alt: ALT, sizes: "100vw", fetchPriority: "high", loading: "eager" } as const;
 const {
   props: { srcSet: wideSrcSet },
-} = getImageProps({ ...common, src: "/home/kitchen-wide.webp", width: 2400, height: 1440 });
+} = getImageProps({ ...common, src: "/home/kitchen-wide.webp", width: 2400, height: 1500 });
 const {
   props: { srcSet: tallSrcSet, ...tallImg },
-} = getImageProps({ ...common, src: "/home/kitchen-tall.webp", width: 1200, height: 1600 });
+} = getImageProps({ ...common, src: "/home/kitchen-tall.webp", width: 1200, height: 2400 });
 
 /**
  * The kitchen photo, edge to edge and about one screen tall, with the header (laid over it
@@ -35,7 +37,7 @@ export default function Hero() {
           {...tallImg}
           srcSet={tallSrcSet}
           alt={ALT}
-          className="absolute inset-0 h-full w-full object-cover object-[center_30%] md:object-[center_40%]"
+          className="absolute inset-0 h-full w-full object-cover object-center"
         />
       </picture>
 
