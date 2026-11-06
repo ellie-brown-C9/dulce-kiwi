@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { ITEMS, GROUPS } from "../src/components/menu/items.ts";
+import { ITEMS, GROUPS, PEOPLE_RANGES } from "../src/components/menu/items.ts";
 import {
   HELLO_MESSAGE, formatPrice, planFor, suggest, quantityLabel, lineKey, addOrToggle, changeQty,
   orderTotal, lineText, orderMessage, parseMatchQuery, servingsNote,
@@ -59,9 +59,14 @@ test("order message lists only the picked items", () => {
   ];
   assert.equal(orderTotal(o), 29000);
   assert.equal(
-    orderMessage(o, { occasion: "merienda", people: 6 }),
-    "¡Hola Ellie! Vi el menú y quiero pedirte:\n• 1 budín de banana (normal, frosting de vainilla)\n• 1 docena de scones simples\nEs para una merienda de unas 6 personas. ¿Lo coordinamos?",
+    orderMessage(o, { occasion: "merienda", people: 8 }),
+    "¡Hola Ellie! Vi el menú y quiero pedirte:\n• 1 budín de banana (normal, frosting de vainilla)\n• 1 docena de scones simples\nEs para una merienda de 5 a 8 personas. ¿Lo coordinamos?",
   );
+  const tail = (occasion, people) => orderMessage(o, { occasion, people }).split("
+").pop();
+  assert.equal(tail("merienda", 4), "Es para una merienda de 2 a 4 personas. ¿Lo coordinamos?");
+  assert.equal(tail("cumple", 15), "Es para un cumple de 9 a 15 personas. ¿Lo coordinamos?");
+  assert.equal(tail("cumple", 20), "Es para un cumple de 16 personas o más. ¿Lo coordinamos?");
   assert.equal(
     orderMessage(o, null),
     "¡Hola Ellie! Vi el menú y quiero pedirte:\n• 1 budín de banana (normal, frosting de vainilla)\n• 1 docena de scones simples\n¿Lo coordinamos?",
@@ -79,14 +84,28 @@ test("line texts for the odd sizes", () => {
   assert.equal(lineText(line("brownie", "Mini", 2)), "2 budines brownie de chocolate amargo y nueces (mini)");
 });
 test("query params from the homepage teaser, with fallbacks", () => {
-  assert.deepEqual(parseMatchQuery({ ocasion: "cumple", personas: "15" }), { occasion: "cumple", people: 15, chosen: true });
-  assert.deepEqual(parseMatchQuery({ ocasion: "pizza", personas: "-3" }), { occasion: "merienda", people: 6, chosen: false });
-  assert.deepEqual(parseMatchQuery({}), { occasion: "merienda", people: 6, chosen: false });
+  const q = (ocasion, personas) => parseMatchQuery({ ocasion, personas });
+  assert.deepEqual(q("cumple", "15"), { occasion: "cumple", people: 15, chosen: true });
+  assert.deepEqual(q("pizza", "-3"), { occasion: "merienda", people: 8, chosen: false });
+  assert.deepEqual(q("cumple", "-3"), { occasion: "cumple", people: 8, chosen: false });
+  assert.deepEqual(parseMatchQuery({}), { occasion: "merienda", people: 8, chosen: false });
+  // legacy links map to the range that contains the old number
+  assert.deepEqual(q("merienda", "6"), { occasion: "merienda", people: 8, chosen: true });
+  assert.deepEqual(q("merienda", "2"), { occasion: "merienda", people: 4, chosen: true });
+  assert.deepEqual(q("merienda", "10"), { occasion: "merienda", people: 15, chosen: true });
+  assert.deepEqual(q("merienda", "12"), { occasion: "merienda", people: 15, chosen: true });
+  assert.deepEqual(q("merienda", "30"), { occasion: "merienda", people: 20, chosen: true });
 });
 
-test("every homepage people chip (4, 8, 15, 20) is a size the menu page accepts", () => {
-  for (const n of [4, 8, 15, 20]) {
-    assert.equal(parseMatchQuery({ ocasion: "merienda", personas: String(n) }).chosen, true);
+test("the four people ranges are defined once", () => {
+  assert.deepEqual(PEOPLE_RANGES, [
+    { label: "2 a 4 personas", value: 4 },
+    { label: "5 a 8 personas", value: 8 },
+    { label: "9 a 15 personas", value: 15 },
+    { label: "16 o más personas", value: 20 },
+  ]);
+  for (const r of PEOPLE_RANGES) {
+    assert.equal(parseMatchQuery({ ocasion: "merienda", personas: String(r.value) }).chosen, true);
   }
 });
 

@@ -1,4 +1,4 @@
-import { ITEMS, OCCASIONS, PEOPLE, type MenuItem, type OccasionId, type Size } from "./items.ts";
+import { ITEMS, DEFAULT_PEOPLE, OCCASIONS, PEOPLE_RANGES, type MenuItem, type OccasionId, type Size } from "./items.ts";
 
 export const HELLO_MESSAGE = "¡Hola Ellie! Me gustaría hacerte un pedido.";
 
@@ -97,12 +97,26 @@ export function lineText(line: OrderLine): string {
   }
 }
 
+// "de 5 a 8 personas" / "de 16 personas o más"
+function peopleText(people: number): string {
+  const range = PEOPLE_RANGES.find((r) => r.value === people);
+  if (!range) return `de ${people} personas`;
+  return "de " + (range.value === 20 ? "16 personas o más" : range.label);
+}
+
+// People counts old links could carry, mapped onto the range that contains them
+const LEGACY_PEOPLE = [2, 4, 6, 8, 10, 12, 15, 20, 30];
+
+function rangeValueFor(n: number): number {
+  return (PEOPLE_RANGES.find((r) => n <= r.value) ?? PEOPLE_RANGES[PEOPLE_RANGES.length - 1]).value;
+}
+
 export function orderMessage(lines: OrderLine[], context: { occasion: OccasionId; people: number } | null): string {
   if (lines.length === 0) return HELLO_MESSAGE;
   const parts = ["¡Hola Ellie! Vi el menú y quiero pedirte:", ...lines.map((l) => `• ${lineText(l)}`)];
   if (context) {
     const o = OCCASIONS[context.occasion];
-    parts.push(`Es para ${o.article} ${o.label} de unas ${context.people} personas. ¿Lo coordinamos?`);
+    parts.push(`Es para ${o.article} ${o.label} ${peopleText(context.people)}. ¿Lo coordinamos?`);
   } else {
     parts.push("¿Lo coordinamos?");
   }
@@ -112,8 +126,8 @@ export function orderMessage(lines: OrderLine[], context: { occasion: OccasionId
 export function parseMatchQuery(q: { ocasion?: string; personas?: string }): { occasion: OccasionId; people: number; chosen: boolean } {
   const occ = q.ocasion !== undefined && Object.prototype.hasOwnProperty.call(OCCASIONS, q.ocasion) ? (q.ocasion as OccasionId) : null;
   const n = Number(q.personas);
-  const ppl = q.personas !== undefined && PEOPLE.includes(n) ? n : null;
-  return { occasion: occ ?? "merienda", people: ppl ?? 6, chosen: occ !== null && ppl !== null };
+  const ppl = q.personas !== undefined && (PEOPLE_RANGES.some((r) => r.value === n) || LEGACY_PEOPLE.includes(n)) ? rangeValueFor(n) : null;
+  return { occasion: occ ?? "merienda", people: ppl ?? DEFAULT_PEOPLE, chosen: occ !== null && ppl !== null };
 }
 
 /** Small servings line under a card's price. Portions are always approximate. */

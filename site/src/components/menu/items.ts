@@ -130,7 +130,14 @@ export const OCCASIONS: Record<OccasionId, { label: string; article: "una" | "un
   },
 };
 
-export const PEOPLE: number[] = [2, 4, 6, 8, 10, 12, 15, 20, 30];
+/** The four "how many" ranges shared by the homepage teaser and the /menu picker; value is the headcount used for planning. */
+export const PEOPLE_RANGES: { label: string; value: number }[] = [
+  { label: "2 a 4 personas", value: 4 },
+  { label: "5 a 8 personas", value: 8 },
+  { label: "9 a 15 personas", value: 15 },
+  { label: "16 o más personas", value: 20 },
+];
+export const DEFAULT_PEOPLE = 8;
 
 export const GROUPS: { id: "merienda" | "tortas"; title: string; eyebrow: string }[] = [
   { id: "merienda", title: "Para la merienda", eyebrow: "Lo más pedido" },

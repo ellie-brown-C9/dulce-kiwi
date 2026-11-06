@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import type { MenuItem, OccasionId } from "./menu/items.ts";
+import { PEOPLE_RANGES, DEFAULT_PEOPLE, type MenuItem, type OccasionId } from "./menu/items.ts";
 import { formatPrice, planFor, quantityLabel, suggest } from "./menu/logic.ts";
 
 const OCCASION_CHIPS: { value: OccasionId; label: string }[] = [
@@ -11,14 +11,6 @@ const OCCASION_CHIPS: { value: OccasionId; label: string }[] = [
   { value: "postre", label: "Postre" },
   { value: "juntada", label: "Juntada" },
   { value: "cumple", label: "Cumple" },
-];
-
-// Four "how many" ranges; each value is a PEOPLE size the menu page understands
-const PEOPLE_CHIPS: { value: number; label: string }[] = [
-  { value: 4, label: "2 a 4" },
-  { value: 8, label: "5 a 8" },
-  { value: 15, label: "9 a 15" },
-  { value: 20, label: "16 o más" },
 ];
 
 function Chips<T extends string | number>({
@@ -109,7 +101,7 @@ function SuggestionCard({ item, people, href }: { item: MenuItem; people: number
  */
 export default function MenuTeaser() {
   const [occasion, setOccasion] = useState<OccasionId>("merienda");
-  const [people, setPeople] = useState(8);
+  const [people, setPeople] = useState(DEFAULT_PEOPLE);
   const href = `/menu?ocasion=${occasion}&personas=${people}`;
   const picks = suggest(occasion, people).slice(0, 2);
 
@@ -122,7 +114,7 @@ export default function MenuTeaser() {
             ¿Qué estás <em className="text-terracotta">armando?</em>
           </h2>
           <Chips id="teaser-ocasion" label="¿Para qué es?" options={OCCASION_CHIPS} value={occasion} onChange={setOccasion} />
-          <Chips id="teaser-personas" label="¿Cuántos son?" options={PEOPLE_CHIPS} value={people} onChange={setPeople} />
+          <Chips id="teaser-personas" label="¿Cuántos son?" options={PEOPLE_RANGES} value={people} onChange={setPeople} />
         </div>
 
         <div>

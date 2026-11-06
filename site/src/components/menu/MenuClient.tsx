@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { GROUPS, ITEMS, OCCASIONS, PEOPLE, type MenuItem, type OccasionId } from "./items.ts";
+import { GROUPS, ITEMS, OCCASIONS, PEOPLE_RANGES, type MenuItem, type OccasionId } from "./items.ts";
 import {
   HELLO_MESSAGE,
   addOrToggle,
@@ -24,7 +24,6 @@ const OCCASION_OPTIONS = (Object.keys(OCCASIONS) as OccasionId[]).map((id) => ({
   value: id,
   label: OCCASIONS[id].label,
 }));
-const PEOPLE_OPTIONS = PEOPLE.map((n) => ({ value: n, label: `${n} personas` }));
 
 /** The /menu page body: the matchmaker sentence, three suggestions, the full menu and the order bar. */
 export default function MenuClient({ initial }: { initial: Initial }) {
@@ -94,7 +93,7 @@ export default function MenuClient({ initial }: { initial: Initial }) {
             <Picker
               ariaLabel="Cuántas personas"
               value={people}
-              options={PEOPLE_OPTIONS}
+              options={PEOPLE_RANGES}
               onChange={(v) => {
                 setPeople(v);
                 setChosen(true);

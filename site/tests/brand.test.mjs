@@ -185,10 +185,9 @@ test("homepage teaser (version B) asks with chips and hands its answers to /menu
   assert.match(teaser, /Ver más recomendaciones y el menú completo →/);
   assert.match(teaser, /href=\{href\}/);
   assert.match(teaser, /const href = `\/menu\?ocasion=\$\{occasion\}&personas=\$\{people\}`/);
-  // four people chips, each a size the menu page understands
-  for (const [label, n] of [["2 a 4", 4], ["5 a 8", 8], ["9 a 15", 15], ["16 o más", 20]]) {
-    assert.ok(teaser.includes(`{ value: ${n}, label: "${label}" }`), `people chip ${label} → ${n}`);
-  }
+  // the four people chips come from the shared PEOPLE_RANGES (same as the /menu picker)
+  assert.match(teaser, /options=\{PEOPLE_RANGES\}/);
+  assert.ok(!teaser.includes("const PEOPLE_CHIPS"));
   assert.match(teaser, /aria-pressed=\{on\}/);
   assert.match(teaser, /min-h-11/);
   assert.match(teaser, /suggest\(occasion, people\)\.slice\(0, 2\)/);
