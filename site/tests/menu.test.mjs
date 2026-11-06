@@ -62,8 +62,7 @@ test("order message lists only the picked items", () => {
     orderMessage(o, { occasion: "merienda", people: 8 }),
     "¡Hola Ellie! Vi el menú y quiero pedirte:\n• 1 budín de banana (normal, frosting de vainilla)\n• 1 docena de scones simples\nEs para una merienda de 5 a 8 personas. ¿Lo coordinamos?",
   );
-  const tail = (occasion, people) => orderMessage(o, { occasion, people }).split("
-").pop();
+  const tail = (occasion, people) => orderMessage(o, { occasion, people }).split("\n").pop();
   assert.equal(tail("merienda", 4), "Es para una merienda de 2 a 4 personas. ¿Lo coordinamos?");
   assert.equal(tail("cumple", 15), "Es para un cumple de 9 a 15 personas. ¿Lo coordinamos?");
   assert.equal(tail("cumple", 20), "Es para un cumple de 16 personas o más. ¿Lo coordinamos?");
