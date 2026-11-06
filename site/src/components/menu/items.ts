@@ -131,11 +131,12 @@ export const OCCASIONS: Record<OccasionId, { label: string; article: "una" | "un
 };
 
 /** The four "how many" ranges shared by the homepage teaser and the /menu picker; value is the headcount used for planning. */
-export const PEOPLE_RANGES: { label: string; value: number }[] = [
-  { label: "2 a 4 personas", value: 4 },
-  { label: "5 a 8 personas", value: 8 },
-  { label: "9 a 15 personas", value: 15 },
-  { label: "16 o más personas", value: 20 },
+/** `label` reads in the /menu sentence; `short` is the homepage chip text. */
+export const PEOPLE_RANGES: { label: string; short: string; value: number }[] = [
+  { label: "2 a 4 personas", short: "2 a 4", value: 4 },
+  { label: "5 a 8 personas", short: "5 a 8", value: 8 },
+  { label: "9 a 15 personas", short: "9 a 15", value: 15 },
+  { label: "16 o más personas", short: "16 o más", value: 20 },
 ];
 export const DEFAULT_PEOPLE = 8;
 

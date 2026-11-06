@@ -114,7 +114,7 @@ export default function MenuTeaser() {
             ¿Qué estás <em className="text-terracotta">armando?</em>
           </h2>
           <Chips id="teaser-ocasion" label="¿Para qué es?" options={OCCASION_CHIPS} value={occasion} onChange={setOccasion} />
-          <Chips id="teaser-personas" label="¿Cuántos son?" options={PEOPLE_RANGES} value={people} onChange={setPeople} />
+          <Chips id="teaser-personas" label="¿Cuántos son?" options={PEOPLE_RANGES.map((r) => ({ label: r.short, value: r.value }))} value={people} onChange={setPeople} />
         </div>
 
         <div>

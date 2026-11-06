@@ -186,7 +186,7 @@ test("homepage teaser (version B) asks with chips and hands its answers to /menu
   assert.match(teaser, /href=\{href\}/);
   assert.match(teaser, /const href = `\/menu\?ocasion=\$\{occasion\}&personas=\$\{people\}`/);
   // the four people chips come from the shared PEOPLE_RANGES (same as the /menu picker)
-  assert.match(teaser, /options=\{PEOPLE_RANGES\}/);
+  assert.match(teaser, /options=\{PEOPLE_RANGES\.map\(\(r\) => \(\{ label: r\.short/);
   assert.ok(!teaser.includes("const PEOPLE_CHIPS"));
   assert.match(teaser, /aria-pressed=\{on\}/);
   assert.match(teaser, /min-h-11/);

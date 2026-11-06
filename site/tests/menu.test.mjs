@@ -98,10 +98,10 @@ test("query params from the homepage teaser, with fallbacks", () => {
 
 test("the four people ranges are defined once", () => {
   assert.deepEqual(PEOPLE_RANGES, [
-    { label: "2 a 4 personas", value: 4 },
-    { label: "5 a 8 personas", value: 8 },
-    { label: "9 a 15 personas", value: 15 },
-    { label: "16 o más personas", value: 20 },
+    { label: "2 a 4 personas", short: "2 a 4", value: 4 },
+    { label: "5 a 8 personas", short: "5 a 8", value: 8 },
+    { label: "9 a 15 personas", short: "9 a 15", value: 15 },
+    { label: "16 o más personas", short: "16 o más", value: 20 },
   ]);
   for (const r of PEOPLE_RANGES) {
     assert.equal(parseMatchQuery({ ocasion: "merienda", personas: String(r.value) }).chosen, true);
