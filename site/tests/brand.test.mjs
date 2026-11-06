@@ -174,3 +174,9 @@ test("menu page sends orders through whatsappLink and never previews the message
 test("menu cards use full photos, never cutouts", () => {
   assert.doesNotMatch(read("../src/components/menu/MenuCard.tsx"), /object-contain|drop-shadow/);
 });
+
+test("matchmaker pills are at least a 44px tap target", () => {
+  const picker = read("../src/components/menu/Picker.tsx");
+  assert.match(picker, /group relative inline-flex min-h-11/);
+  assert.match(picker, /absolute inset-0 h-full w-full/);
+});

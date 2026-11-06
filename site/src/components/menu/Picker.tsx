@@ -1,7 +1,8 @@
 /**
  * A yellow (manteca) pill that reads as part of the sentence, with a small round forest chevron.
  * The real control is a native <select> stretched invisibly over the pill, so phones open
- * their own picker and screen readers get a proper combobox.
+ * their own picker and screen readers get a proper combobox. The select fills a wrapper that is
+ * at least 44px tall, so even a shrunk pill is an easy tap target.
  */
 export default function Picker<T extends string | number>({
   value,
@@ -19,19 +20,23 @@ export default function Picker<T extends string | number>({
   const long = current.length > 14;
 
   return (
+    // The outer span is the tap target: at least 44px tall and part of the line box, so the two
+    // pills' hit areas never overlap when the sentence wraps. The yellow pill inside keeps its size.
     <span
-      className={`relative inline-flex max-w-full items-center gap-[0.22em] rounded-[0.7em] bg-manteca py-[0.02em] pr-[0.32em] pl-[0.45em] align-baseline italic font-extrabold text-forest shadow-[0_3px_0_rgb(52_80_63/0.18)] transition-shadow focus-within:shadow-[0_3px_0_rgb(52_80_63/0.18),0_0_0_3px_var(--color-forest)] hover:shadow-[0_4px_0_rgb(52_80_63/0.28)] ${
+      className={`group relative inline-flex min-h-11 max-w-full items-center align-baseline ${
         long ? "max-sm:text-[0.72em]" : ""
       }`}
     >
-      <span>{current}</span>
-      <span
-        aria-hidden="true"
-        className="inline-grid size-[0.62em] flex-none place-items-center self-center rounded-full bg-forest text-sheet"
-      >
-        <svg viewBox="0 0 10 10" className="size-[70%]">
-          <path d="M2.5 4l2.5 2.5L7.5 4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-        </svg>
+      <span className="inline-flex max-w-full items-center gap-[0.22em] rounded-[0.7em] bg-manteca py-[0.02em] pr-[0.32em] pl-[0.45em] italic font-extrabold text-forest shadow-[0_3px_0_rgb(52_80_63/0.18)] transition-shadow group-focus-within:shadow-[0_3px_0_rgb(52_80_63/0.18),0_0_0_3px_var(--color-forest)] group-hover:shadow-[0_4px_0_rgb(52_80_63/0.28)]">
+        <span>{current}</span>
+        <span
+          aria-hidden="true"
+          className="inline-grid size-[0.62em] flex-none place-items-center self-center rounded-full bg-forest text-sheet"
+        >
+          <svg viewBox="0 0 10 10" className="size-[70%]">
+            <path d="M2.5 4l2.5 2.5L7.5 4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+          </svg>
+        </span>
       </span>
       <select
         aria-label={ariaLabel}
