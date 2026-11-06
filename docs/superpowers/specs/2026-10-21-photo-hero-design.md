@@ -4,6 +4,8 @@ Date: 2026-10-21
 Branch: `homepage`
 Builds on round 4 (`2026-10-11-round-4-design.md`).
 
+**Status update (2026-11-06): being built now, launching together with the menu page. §4 is superseded: under the photo comes the Ticker then the menu teaser, and "Mi horno" becomes "Menú" → /menu. See `2026-11-06-menu-page-design.md`.**
+
 **Status (2026-10-21): saved, not built, not launched.** Ellie approved the photo, header and hero from `final-preview-d3.html`, then asked to park it and come back later. What sits under the photo (§4) is a **stand-in**: she isn't sure about it, and it gets its own round together with the post-Mother's Day tidy-up.
 
 ## Why

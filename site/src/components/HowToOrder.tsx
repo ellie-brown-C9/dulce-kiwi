@@ -41,11 +41,6 @@ export default function HowToOrder() {
             </li>
           ))}
         </ol>
-
-        <p className="reveal mt-10 font-display text-lg font-semibold text-forest italic md:mt-14 md:text-xl">
-          Sin carrito, sin precios fijos: cada horneada es distinta. Preguntame
-          sin compromiso.
-        </p>
       </div>
     </section>
   );
